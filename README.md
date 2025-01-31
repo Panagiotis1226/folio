@@ -9,7 +9,6 @@ https://Panagiotis1226.github.io/folio
 
 Features: <br>
 Responsive Design: Optimized for all devices to ensure a seamless user experience.
-Interactive Elements: Explore interactive projects.
 
 Technologies Used: <br>
 HTML <br>
