@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Portfolio - Computer Science & Cybersecurity Enthusiast</title>
+</head>
+<body>
+  <header>
+    <h1>Panagiotis Nicolacacos</h1>
+    <p>Computer Science Student | Cybersecurity Enthusiast | Server Specialist</p>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#technical-skills">Technical Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+  <div class="container">
+    <section id="about" class="about">
+      <h2>Summary</h2>
+      <p>
+        I am a passionate Computer Science student with a strong interest in cybersecurity and ethical hacking. 
+        Alongside my formal education, I have self-taught myself various aspects of cybersecurity, including penetration testing, 
+        network security, and server management. My goal is to leverage technology to create secure systems and protect digital assets.
+      </p>
+      <a href="CV.pdf" download class="download-cv">Download CV</a>
+    </section>
+    <section id="technical-skills" class="skills">
+      <h2>Technical Skills</h2>
+      <h3>Programming Languages</h3>
+      <ul>
+        <li>C#</li>
+        <li>Java</li>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>Javascript</li>
+        <li>PHP</li>
+        <li>Swift</li>
+        <li>.NET</li>
+        <li>Bash</li>
+        <li>Python</li>
+      </ul>
+      <h3>Server Deployment</h3>
+      <ul>
+        <li>Linux</li>
+        <li>CLI</li>
+        <li>Docker</li>
+        <li>AWS</li>
+        <li>Ollama</li>
+        <li>Node.js</li>
+      </ul>
+      <h3>Developer Tools</h3>
+      <ul>
+        <li>Visual Studio</li>
+        <li>VS Code</li>
+        <li>Xcode</li>
+        <li>IntelliJ</li>
+        <li>Git</li>
+        <li>VMware</li>
+      </ul>
+    </section>
+    <section id="projects" class="projects">
+      <h2>Projects</h2>
+      <div class="project-card">
+        <h3>Game Server Deployment</h3>
+        <p>
+          Deployed and configured interconnected Minecraft servers with a fully functioning website using JSON configuration files.
+        </p>
+      </div>
+      <div class="project-card">
+        <h3>Media Server</h3>
+        <p>
+          Configured fully on-premise servers using Immich photo service and NextCloud to store images and files, replacing iCloud subscriptions.
+        </p>
+      </div>
+      <div class="project-card">
+        <h3>Web Services</h3>
+        <p>
+          Created a dynamically scalable Apache server with a Docker backend, implementing port forwarding and load balancing for high user traffic.
+        </p>
+      </div>
+      <div class="project-card">
+        <h3>Network Security</h3>
+        <p>
+          Deployed Wazuh agents across all endpoints in a network to mitigate malware risks and scanned/closed unnecessary open ports to prevent intrusions.
+        </p>
+      </div>
+    </section>
+    <section id="certifications" class="certifications">
+      <h2>Certifications</h2>
+      <ul style="list-style-type: disc; padding-left: 20px;">
+        <li>Codecademy - iOS Development, Command Line, Intro to Ethical Hacking and Cybersecurity</li>
+        <li>Google - Foundations of Cybersecurity, Manage Security Risks</li>
+        <li>AWS - Getting Started with Compute, Networking and Storage, Cloud 101</li>
+      </ul>
+    </section>
+    <footer id="contact">
+      <p>
+        Connect with me on 
+        <a href="https://www.linkedin.com/in/panagiotis-nicolacacos" target="_blank">LinkedIn</a>, 
+        check out some of my work on <a href="https://github.com/Panagiotis1226" target="_blank">GitHub</a>. 
+      </p>
+    </footer>
+  </div>
+  <button class="mode-toggle" onclick="toggleMode()">Dark Mode</button>
+  <script>
+    // Check for saved theme preference when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      const darkMode = localStorage.getItem('darkMode') === 'true';
+      if (darkMode) {
+        document.body.classList.add('dark-mode');
+        document.querySelector('.mode-toggle').textContent = 'Light Mode';
+      }
+    });
+
+    function toggleMode() {
+      document.body.classList.toggle('dark-mode');
+      const button = document.querySelector('.mode-toggle');
+      const isDarkMode = document.body.classList.contains('dark-mode');
+      button.textContent = isDarkMode ? 'Light Mode' : 'Dark Mode';
+      // Save preference to localStorage
+      localStorage.setItem('darkMode', isDarkMode);
+    }
+  </script>
+</body>
+</html>
