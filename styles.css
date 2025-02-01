@@ -42,12 +42,15 @@
     justify-content: center;
     gap: 1.5rem;
     margin-top: 1rem;
+    flex-wrap: wrap;
+    padding: 0 1rem;
   }
   nav a {
     color: #333333;
     text-decoration: none;
     font-weight: bold;
     transition: color 0.3s ease, transform 0.3s ease;
+    margin: 0.25rem 0;
   }
   body.dark-mode nav a {
     color: #e0e0e0;
