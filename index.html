@@ -1,129 +1,319 @@
 <!DOCTYPE html>
+<!--
+  hand-written html/css/js. no frameworks, no build step, no generator.
+  view source is the tour: styles.css, js/main.js, js/terminal.js
+-->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0a0e14">
+
+  <title>Panagiotis "Peter" Nicolacacos — Full-Stack Developer</title>
+  <meta name="description" content="Full-stack developer and CS student in Montréal with three years of hands-on experience building web applications and running the self-hosted Linux, Docker, and network-security infrastructure they live on.">
+  <link rel="canonical" href="https://gh.petestech.com/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gh.petestech.com/">
+  <meta property="og:title" content="Panagiotis &quot;Peter&quot; Nicolacacos — Full-Stack Developer">
+  <meta property="og:description" content="Full-stack developer and CS student in Montréal. Web software on top, self-hosted Linux/Docker/security infrastructure underneath.">
+  <meta property="og:image" content="https://gh.petestech.com/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+  <link rel="preload" href="assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
-  <title>Portfolio - Computer Science & Cybersecurity Enthusiast</title>
+
+  <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
-  <header>
-    <h1>Panagiotis Nicolacacos</h1>
-    <p>Computer Science Student | Cybersecurity Enthusiast | Server Specialist</p>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#technical-skills">Technical Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#certifications">Certifications</a>
-      <a href="#contact">Contact</a>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="wordmark" href="#top" aria-label="Home">pn@petestech<span class="wordmark-path">:~$</span><span class="cursor" aria-hidden="true"></span></a>
+      <ul class="nav-links">
+        <li class="nav-optional"><a href="#about">about</a></li>
+        <li><a href="#projects">projects</a></li>
+        <li class="nav-optional"><a href="#experience">experience</a></li>
+        <li><a href="#contact">contact</a></li>
+        <li><a class="nav-cv" href="CV.pdf">cv.pdf</a></li>
+      </ul>
     </nav>
   </header>
-  <div class="container">
-    <section id="about" class="about">
-      <h2>Summary</h2>
-      <p>
-        I am a passionate Computer Science student with a strong interest in cybersecurity and ethical hacking. 
-        Alongside my formal education, I have self-taught myself various aspects of cybersecurity, including penetration testing, 
-        network security, and server management. My goal is to leverage technology to create secure systems and protect digital assets.
-      </p>
-      <a href="CV.pdf" download class="download-cv">Download CV</a>
-    </section>
-    <section id="technical-skills" class="skills">
-      <h2>Technical Skills</h2>
-      <h3>Programming Languages</h3>
-      <ul>
-        <li>C#</li>
-        <li>Java</li>
-        <li>HTML</li>
-        <li>CSS</li>
-        <li>Javascript</li>
-        <li>PHP</li>
-        <li>Swift</li>
-        <li>.NET</li>
-        <li>Bash</li>
-        <li>Python</li>
-      </ul>
-      <h3>Server Deployment</h3>
-      <ul>
-        <li>Linux</li>
-        <li>CLI</li>
-        <li>Docker</li>
-        <li>AWS</li>
-        <li>Ollama</li>
-        <li>Node.js</li>
-      </ul>
-      <h3>Developer Tools</h3>
-      <ul>
-        <li>Visual Studio</li>
-        <li>VS Code</li>
-        <li>Xcode</li>
-        <li>IntelliJ</li>
-        <li>Git</li>
-        <li>VMware</li>
-      </ul>
-    </section>
-    <section id="projects" class="projects">
-      <h2>Projects</h2>
-      <div class="project-card">
-        <h3>Game Server Deployment</h3>
-        <p>
-          Deployed and configured interconnected Minecraft servers with a fully functioning website using JSON configuration files.
-        </p>
-      </div>
-      <div class="project-card">
-        <h3>Media Server</h3>
-        <p>
-          Configured fully on-premise servers using Immich photo service and NextCloud to store images and files, replacing iCloud subscriptions.
-        </p>
-      </div>
-      <div class="project-card">
-        <h3>Web Services</h3>
-        <p>
-          Created a dynamically scalable Apache server with a Docker backend, implementing port forwarding and load balancing for high user traffic.
-        </p>
-      </div>
-      <div class="project-card">
-        <h3>Network Security</h3>
-        <p>
-          Deployed Wazuh agents across all endpoints in a network to mitigate malware risks and scanned/closed unnecessary open ports to prevent intrusions.
-        </p>
-      </div>
-    </section>
-    <section id="certifications" class="certifications">
-      <h2>Certifications</h2>
-      <ul style="list-style-type: disc; padding-left: 20px;">
-        <li>Codecademy - iOS Development, Command Line, Intro to Ethical Hacking and Cybersecurity</li>
-        <li>Google - Foundations of Cybersecurity, Manage Security Risks</li>
-        <li>AWS - Getting Started with Compute, Cloud 101, Networking and Storage</li>
-      </ul>
-    </section>
-    <footer id="contact">
-      <p>
-        Connect with me on 
-        <a href="https://www.linkedin.com/in/panagiotis-nicolacacos" target="_blank">LinkedIn</a>, 
-        check out some of my work on <a href="https://github.com/Panagiotis1226" target="_blank">GitHub</a>. 
-      </p>
-    </footer>
-  </div>
-  <button class="mode-toggle" onclick="toggleMode()">Dark Mode</button>
-  <script>
-    // Check for saved theme preference when page loads
-    document.addEventListener('DOMContentLoaded', () => {
-      const darkMode = localStorage.getItem('darkMode') === 'true';
-      if (darkMode) {
-        document.body.classList.add('dark-mode');
-        document.querySelector('.mode-toggle').textContent = 'Light Mode';
-      }
-    });
 
-    function toggleMode() {
-      document.body.classList.toggle('dark-mode');
-      const button = document.querySelector('.mode-toggle');
-      const isDarkMode = document.body.classList.contains('dark-mode');
-      button.textContent = isDarkMode ? 'Light Mode' : 'Dark Mode';
-      // Save preference to localStorage
-      localStorage.setItem('darkMode', isDarkMode);
-    }
-  </script>
+  <main id="main">
+
+    <!-- ============================ hero ============================ -->
+    <section class="hero" id="top">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="hero-status">// montréal, qc — open to internships &amp; junior roles</p>
+          <h1>Panagiotis <span class="h1-nick">“Peter”</span> Nicolacacos</h1>
+          <p class="hero-role">full-stack development · self-hosted infrastructure · security</p>
+          <p class="hero-lead">
+            I build web software and run the servers it lives on — three years of
+            hands-on Linux, Docker, and network-security work in a homelab that
+            never stops breaking in educational ways.
+          </p>
+          <div class="hero-cta">
+            <a class="btn btn-accent" href="#projects">view projects <span aria-hidden="true">↓</span></a>
+            <a class="btn btn-ghost" href="CV.pdf" download>download cv</a>
+          </div>
+        </div>
+
+        <div class="hero-term">
+          <p class="visually-hidden">
+            Interactive terminal — a toy, not a gate: everything it prints is
+            also written out in the page sections below.
+          </p>
+          <div class="terminal corner-ticks" id="terminal" hidden>
+            <div class="terminal-bar" aria-hidden="true">peter@folio: ~</div>
+            <div class="terminal-body">
+              <div class="terminal-out" role="log" aria-live="polite"></div>
+              <div class="terminal-line">
+                <span class="terminal-prompt" aria-hidden="true">peter@folio:~$</span>
+                <input class="terminal-input" type="text" autocomplete="off" autocapitalize="off"
+                       autocorrect="off" spellcheck="false" aria-label="Terminal input" enterkeyhint="send">
+              </div>
+            </div>
+          </div>
+          <div class="terminal-chips" id="terminal-chips" hidden>
+            <button type="button" data-cmd="help">help</button>
+            <button type="button" data-cmd="projects">projects</button>
+            <button type="button" data-cmd="neofetch">neofetch</button>
+            <button type="button" data-cmd="nmap gh.petestech.com">nmap</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ about ============================ -->
+    <section class="section" id="about">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">01 / about</span>
+        <h2>The whole stack, including the rack</h2>
+      </div>
+      <div class="about-grid">
+        <div class="prose" data-reveal>
+          <p>
+            I’m a computer science student at LaSalle College in Montréal with
+            three years of experience programming front-end and back-end
+            applications — and a habit of also running the infrastructure they
+            depend on.
+          </p>
+          <p>
+            Most of what I know comes from operating real systems: a self-hosted
+            photo and file platform my family actually uses, load-balanced web
+            services on Docker, and a Wazuh SIEM watching every endpoint on the
+            network. When something breaks at 2&nbsp;a.m., I’m the on-call.
+          </p>
+          <p>
+            Before software, I led teams and operations — a soccer camp, nightlife
+            events, a textile office — so I’m comfortable owning outcomes, not
+            just tickets.
+          </p>
+        </div>
+        <dl class="facts" data-reveal data-reveal-delay="1">
+          <div><dt>location</dt><dd>Montréal, QC</dd></div>
+          <div><dt>education</dt><dd>DEC Computer Science — LaSalle College, 2023–present</dd></div>
+          <div><dt>currently</dt><dd>building &amp; securing self-hosted services</dd></div>
+          <div><dt>focus</dt><dd>full-stack · linux · docker · security</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============================ projects ============================ -->
+    <section class="section" id="projects">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">02 / projects</span>
+        <h2>Selected work</h2>
+        <p class="section-note">
+          Homelab systems, not repo links — the demo is that they’re running.
+          Ask the terminal: <code>projects 3</code>
+        </p>
+      </div>
+
+      <article class="project corner-ticks" data-reveal>
+        <span class="project-index" aria-hidden="true">01</span>
+        <div class="project-body">
+          <h3>Game Server Deployment</h3>
+          <p>
+            Interconnected Minecraft servers behind a public-facing website,
+            wired together through JSON configuration — provisioning, networking,
+            and world data managed as config, not clicks.
+          </p>
+          <p class="project-arch" aria-label="Architecture">[players] → [proxy] → [mc-server ×n] ↔ [web]</p>
+        </div>
+        <dl class="project-meta">
+          <div><dt>stack</dt><dd>minecraft · web server · json config</dd></div>
+          <div><dt>status</dt><dd>operational</dd></div>
+        </dl>
+      </article>
+
+      <article class="project corner-ticks" data-reveal data-reveal-delay="1">
+        <span class="project-index" aria-hidden="true">02</span>
+        <div class="project-body">
+          <h3>Media Server</h3>
+          <p>
+            A fully on-premise photo and file platform — Immich for photos,
+            Nextcloud for everything else — that replaced the household’s paid
+            iCloud storage. Backups, updates, and uptime are on me.
+          </p>
+          <p class="project-arch" aria-label="Architecture">[phones · laptops] → [reverse proxy] → [immich · nextcloud] → [storage]</p>
+        </div>
+        <dl class="project-meta">
+          <div><dt>stack</dt><dd>immich · nextcloud · linux</dd></div>
+          <div><dt>status</dt><dd>operational — daily users</dd></div>
+        </dl>
+      </article>
+
+      <article class="project corner-ticks" data-reveal data-reveal-delay="2">
+        <span class="project-index" aria-hidden="true">03</span>
+        <div class="project-body">
+          <h3>Web Services</h3>
+          <p>
+            Horizontally scalable Apache services on a Docker Compose stack —
+            load-balanced and port-forwarded through the network edge, sized to
+            absorb traffic spikes without falling over.
+          </p>
+          <p class="project-arch" aria-label="Architecture">[clients] → [edge router] → [load balancer] → [apache ×n]</p>
+        </div>
+        <dl class="project-meta">
+          <div><dt>stack</dt><dd>apache · docker compose · load balancing</dd></div>
+          <div><dt>status</dt><dd>operational</dd></div>
+        </dl>
+      </article>
+
+      <article class="project corner-ticks" data-reveal data-reveal-delay="3">
+        <span class="project-index" aria-hidden="true">04</span>
+        <div class="project-body">
+          <h3>Network Security</h3>
+          <p>
+            Wazuh SIEM agents on every endpoint in the network, feeding a central
+            dashboard — plus a sweep that scanned and closed unnecessary open
+            ports to shrink the attack surface.
+          </p>
+          <p class="project-arch" aria-label="Architecture">[endpoints ×n] → [wazuh agents] → [siem manager] → [alerts]</p>
+        </div>
+        <dl class="project-meta">
+          <div><dt>stack</dt><dd>wazuh siem · port scanning · hardening</dd></div>
+          <div><dt>status</dt><dd>operational — always watching</dd></div>
+        </dl>
+      </article>
+    </section>
+
+    <!-- ============================ experience ============================ -->
+    <section class="section" id="experience">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">03 / experience</span>
+        <h2>Experience &amp; education</h2>
+      </div>
+      <ol class="timeline">
+        <li class="timeline-item" data-reveal>
+          <span class="timeline-date">2023 — present</span>
+          <div class="timeline-body">
+            <h3>DEC Computer Science: Programming <span class="timeline-org">— LaSalle College, Montréal</span></h3>
+            <p>Formal grounding for three years of self-directed systems work.</p>
+          </div>
+        </li>
+        <li class="timeline-item" data-reveal data-reveal-delay="1">
+          <span class="timeline-date">summer 2024</span>
+          <div class="timeline-body">
+            <h3>Operations Manager <span class="timeline-org">— CSRDP Soccer Camp</span></h3>
+            <p>Led the staff team and cut redundant tasks for a 10% productivity gain; scheduled hours to prevent overstaffing and burnout; trained new hires.</p>
+          </div>
+        </li>
+        <li class="timeline-item" data-reveal data-reveal-delay="2">
+          <span class="timeline-date">2022 — present</span>
+          <div class="timeline-body">
+            <h3>Event Promoter <span class="timeline-org">— Montréal nightlife (Lobby, Rouge, Laporte, Jet)</span></h3>
+            <p>Designed event flyers and hosted events, boosting venue sales by 15%.</p>
+          </div>
+        </li>
+        <li class="timeline-item" data-reveal data-reveal-delay="3">
+          <span class="timeline-date">2020 — 2022</span>
+          <div class="timeline-body">
+            <h3>Administrative Assistant <span class="timeline-org">— SubarTextiles Ltd</span></h3>
+            <p>Ran orders, invoicing, phones, and in-person sales — the throughput job that taught process discipline.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ============================ skills ============================ -->
+    <section class="section" id="skills">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">04 / skills</span>
+        <h2>Skills</h2>
+      </div>
+      <dl class="skills-list" data-reveal>
+        <div class="skills-row">
+          <dt>languages</dt>
+          <dd><strong>Python</strong> · <strong>JavaScript</strong> · <strong>C#</strong> · Java · PHP · Swift · Bash · HTML/CSS · .NET</dd>
+        </div>
+        <div class="skills-row">
+          <dt>infrastructure &amp; ops</dt>
+          <dd><strong>Linux</strong> · <strong>Docker</strong> · AWS · Node.js · Ollama · CLI</dd>
+        </div>
+        <div class="skills-row">
+          <dt>tools</dt>
+          <dd>Git · VS Code · Visual Studio · Xcode · IntelliJ · VMware</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- ============================ certifications ============================ -->
+    <section class="section" id="certifications">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">05 / certifications</span>
+        <h2>Certifications</h2>
+      </div>
+      <dl class="certs-list" data-reveal>
+        <div class="skills-row">
+          <dt>google</dt>
+          <dd>Foundations of Cybersecurity · Manage Security Risks</dd>
+        </div>
+        <div class="skills-row">
+          <dt>aws</dt>
+          <dd>Getting Started with Compute · Networking and Storage · Cloud 101</dd>
+        </div>
+        <div class="skills-row">
+          <dt>codecademy</dt>
+          <dd>iOS Development · Command Line · Intro to Ethical Hacking &amp; Cybersecurity</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- ============================ contact ============================ -->
+    <section class="section" id="contact">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">06 / contact</span>
+        <h2>Get in touch</h2>
+      </div>
+      <div class="contact-body" data-reveal>
+        <p class="contact-lead">Looking for a developer who can also run the infrastructure? Email me.</p>
+        <a class="contact-email" href="mailto:PeterNicolacacos@gmail.com">PeterNicolacacos@gmail.com</a>
+        <ul class="contact-links">
+          <li><a href="https://github.com/Panagiotis1226" target="_blank" rel="noopener noreferrer">github <span aria-hidden="true">↗</span></a></li>
+          <li><a href="https://www.linkedin.com/in/panagiotis-nicolacacos" target="_blank" rel="noopener noreferrer">linkedin <span aria-hidden="true">↗</span></a></li>
+          <li><a href="CV.pdf" download>cv.pdf</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p class="colophon">
+      <span class="colophon-cmd" aria-hidden="true">$ cat colophon.txt</span>
+      hand-written html/css/js — no frameworks, no build step. hosted on github pages.
+    </p>
+    <p class="copyright">© 2026 Panagiotis Nicolacacos</p>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>
