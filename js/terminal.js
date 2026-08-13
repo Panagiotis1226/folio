@@ -40,16 +40,17 @@ const PROJECTS = [
 ];
 
 const SKILLS = [
-  ['languages', 'Python · JavaScript · C# · Java · PHP · Swift · Bash · HTML/CSS · .NET'],
-  ['infra & ops', 'Linux · Docker · AWS · Node.js · Ollama · CLI'],
-  ['tools', 'Git · VS Code · Visual Studio · Xcode · IntelliJ · VMware'],
+  ['languages', 'Python · JavaScript · React · C# · Java · PHP · Swift · Bash · HTML/CSS · .NET'],
+  ['infra & ops', 'Linux · Docker · Nginx · Proxmox · AWS · GCP · Node.js · Ollama · CLI'],
+  ['tools', 'Git · VS Code · Visual Studio · Xcode · IntelliJ · VMware · Shopify · Cin7 · ShipStation'],
 ];
 
 const WHOAMI = [
   { text: 'Panagiotis “Peter” Nicolacacos', cls: 't-bright' },
-  'CS student in Montréal. I build web software and run the',
-  'servers it lives on — linux, docker, and a homelab that',
-  'never stops breaking in educational ways.',
+  'CS grad (DEC, LaSalle College) in Montréal — revenue ops',
+  '& AI automation at Polysleep by day. I build web software',
+  'and run the servers it lives on — linux, docker, and a',
+  'homelab that never stops breaking in educational ways.',
 ];
 
 const NEOFETCH_ART = [
