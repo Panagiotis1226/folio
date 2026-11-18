@@ -61,7 +61,7 @@ const SKILLS = [
 ];
 
 const EXPERIENCE = [
-  ['dec 2025 →', 'Revenue Operations Analyst · E-commerce & AI — Polysleep'],
+  ['dec 2025 →', 'Business Systems & Operations Analyst · E-commerce & AI — Polysleep'],
   ['2025 →', 'Bachelor’s degree — ESG UQAM (in progress)'],
   ['may 2025 →', 'Content Creator — self-employed'],
   ['2025', 'Programming Intern · Full-Stack — Jaqln.ai'],
@@ -78,14 +78,14 @@ const CERTS = [
 
 const WHOAMI = [
   { text: 'Panagiotis “Peter” Nicolacacos', cls: 't-bright' },
-  'CS grad (DEC, LaSalle College) in Montréal. Revenue ops',
+  'CS grad (DEC, LaSalle College) in Montréal. Business systems',
   '& AI automation at Polysleep by day. I automate the',
   'busywork and run the servers underneath — linux, docker,',
   'and a homelab that never stops breaking in educational ways.',
 ];
 
 const NOW = [
-  ['working', 'revenue ops & AI automation @ Polysleep'],
+  ['working', 'business systems & AI automation @ Polysleep'],
   ['operating', 'a homelab with four live systems'],
   ['studying', 'bachelor’s, ESG UQAM'],
   ['certifying', 'Google Cybersecurity — 3 of 8'],
