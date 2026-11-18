@@ -14,24 +14,28 @@ const LINKS = {
 
 const PROJECTS = [
   {
-    name: 'Game Server Deployment',
-    stack: 'minecraft · web server · json config',
-    desc: 'Interconnected Minecraft servers behind a public-facing website — provisioning, networking, and world data managed as JSON config.',
-    arch: '[players] → [proxy] → [mc-server ×n] ↔ [web]',
-  },
-  {
+    sys: 'media',
     name: 'Media Server',
     stack: 'immich · nextcloud · linux',
     desc: 'Fully on-premise photo and file platform that replaced the household’s paid iCloud storage. Backups, updates, and uptime included.',
     arch: '[phones · laptops] → [reverse proxy] → [immich · nextcloud] → [storage]',
   },
   {
+    sys: 'web',
     name: 'Web Services',
     stack: 'apache · docker compose · load balancing',
     desc: 'Horizontally scalable Apache services on Docker Compose — load-balanced and port-forwarded through the network edge.',
     arch: '[clients] → [edge router] → [load balancer] → [apache ×n]',
   },
   {
+    sys: 'game',
+    name: 'Game Server Deployment',
+    stack: 'minecraft · web server · json config',
+    desc: 'Interconnected Minecraft servers behind a public-facing website — provisioning, networking, and world data managed as JSON config.',
+    arch: '[players] → [proxy] → [mc-server ×n] ↔ [web]',
+  },
+  {
+    sys: 'sec',
     name: 'Network Security',
     stack: 'wazuh siem · port scanning · hardening',
     desc: 'Wazuh SIEM agents on every endpoint feeding a central dashboard; unnecessary open ports scanned and closed.',
@@ -39,18 +43,53 @@ const PROJECTS = [
   },
 ];
 
+// Automation work at Polysleep — mirrors the "work" section of the page.
+const WORK = [
+  ['reporting', 'the morning briefing — daily sales, order & CX metrics'],
+  ['risk', 'order-risk screening across every order in a date range'],
+  ['fulfillment', 'same-recipient shipment consolidation'],
+  ['inventory', 'stock answers straight from the data warehouse'],
+  ['voice', 'review replies in the brand voice, en / fr'],
+  ['forecasting', 'a faster 300-plus-pivot planning workbook'],
+];
+
 const SKILLS = [
-  ['languages', 'Python · JavaScript · React · C# · Java · PHP · Swift · Bash · HTML/CSS · .NET'],
-  ['infra & ops', 'Linux · Docker · Nginx · Proxmox · AWS · GCP · Node.js · Ollama · CLI'],
-  ['tools', 'Git · VS Code · Visual Studio · Xcode · IntelliJ · VMware · Shopify · Cin7 · ShipStation'],
+  ['languages', 'Python · JavaScript · C# · React · Node.js · Java · PHP · Swift · Bash · HTML/CSS · .NET'],
+  ['infra & sec', 'Linux · Docker · Nginx · Proxmox · Wazuh SIEM · VPN · AWS · GCP'],
+  ['automation', 'Prompt engineering · Claude skills · Ollama · APIs · BigQuery · Excel'],
+  ['platforms', 'Shopify · Gorgias · Cin7 · ShipStation · Git · VMware'],
+];
+
+const EXPERIENCE = [
+  ['dec 2025 →', 'Revenue Operations Analyst · E-commerce & AI — Polysleep'],
+  ['2025 →', 'Bachelor’s degree — ESG UQAM (in progress)'],
+  ['may 2025 →', 'Content Creator — self-employed'],
+  ['2025', 'Programming Intern · Full-Stack — Jaqln.ai'],
+  ['2024', 'Software QA Analyst — PlaytestCloud'],
+  ['summer 2024', 'Operations Manager — CSRDP Soccer Camp'],
+  ['2023 – 2025', 'DEC Computer Science: Programming — LaSalle College'],
+];
+
+const CERTS = [
+  ['google', 'Cybersecurity Certificate — 3 of 8 courses [###·····]'],
+  ['aws educate', 'Compute · Networking · Cloud 101'],
+  ['codecademy', 'JavaScript · Node.js · Command Line · iOS · Ethical Hacking · Cybersecurity'],
 ];
 
 const WHOAMI = [
   { text: 'Panagiotis “Peter” Nicolacacos', cls: 't-bright' },
-  'CS grad (DEC, LaSalle College) in Montréal — revenue ops',
-  '& AI automation at Polysleep by day. I build web software',
-  'and run the servers it lives on — linux, docker, and a',
-  'homelab that never stops breaking in educational ways.',
+  'CS grad (DEC, LaSalle College) in Montréal. Revenue ops',
+  '& AI automation at Polysleep by day. I automate the',
+  'busywork and run the servers underneath — linux, docker,',
+  'and a homelab that never stops breaking in educational ways.',
+];
+
+const NOW = [
+  ['working', 'revenue ops & AI automation @ Polysleep'],
+  ['operating', 'a homelab with four live systems'],
+  ['studying', 'bachelor’s, ESG UQAM'],
+  ['certifying', 'Google Cybersecurity — 3 of 8'],
+  ['next', 'a developer, security, or IT role'],
 ];
 
 const NEOFETCH_ART = [
@@ -63,7 +102,12 @@ const NEOFETCH_ART = [
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-export function initTerminal(root, chipsEl, { reduceMotion = false } = {}) {
+export function initTerminal(root, chipsEl, {
+  reduceMotion = false,
+  getTheme = () => 'dark',
+  setTheme = (t) => t,
+  traceSystem = () => {},
+} = {}) {
   if (!root) return;
 
   const out = root.querySelector('.terminal-out');
@@ -155,12 +199,33 @@ export function initTerminal(root, chipsEl, { reduceMotion = false } = {}) {
       desc: 'who is this guy',
       run: () => WHOAMI,
     },
+    now: {
+      desc: 'what’s running right now',
+      run: () => NOW.map(([k, v]) => [
+        { text: `  ${k.padEnd(12)}`, cls: 't-dim' },
+        { text: v, cls: 't-bright' },
+      ]),
+    },
+    work: {
+      desc: 'automation I build at Polysleep',
+      run: () => [
+        { text: 'automation that removes work:', cls: 't-dim' },
+        ...WORK.map(([k, v]) => [
+          { text: `  ${k.padEnd(13)}`, cls: 't-accent' },
+          { text: v },
+        ]),
+        { text: 'every one ships with an SOP.', cls: 't-dim' },
+      ],
+    },
     projects: {
       desc: 'list projects — `projects 3` for detail',
       run(args) {
         const n = parseInt(args[0], 10);
         if (n >= 1 && n <= PROJECTS.length) {
           const p = PROJECTS[n - 1];
+          // Light up the same system in the topology diagram for a moment.
+          traceSystem(p.sys);
+          setTimeout(() => traceSystem(null), 4000);
           return [
             { text: `${String(n).padStart(2, '0')} · ${p.name}`, cls: 't-bright' },
             { text: `   stack: ${p.stack}`, cls: 't-dim' },
@@ -178,6 +243,34 @@ export function initTerminal(root, chipsEl, { reduceMotion = false } = {}) {
     skills: {
       desc: 'print skills.conf',
       run: () => SKILLS.map(([k, v]) => `  ${k.padEnd(14)}${v}`),
+    },
+    experience: {
+      desc: 'work & education history',
+      run: () => EXPERIENCE.map(([k, v]) => [
+        { text: `  ${k.padEnd(14)}`, cls: 't-dim' },
+        { text: v },
+      ]),
+    },
+    certs: {
+      desc: 'certifications',
+      run: () => CERTS.map(([k, v]) => [
+        { text: `  ${k.padEnd(14)}`, cls: 't-dim' },
+        { text: v },
+      ]),
+    },
+    theme: {
+      desc: 'theme dark | light — repaint the page',
+      run(args) {
+        const want = (args[0] || '').toLowerCase();
+        if (!want) {
+          return [`theme: ${getTheme()}`, { text: 'usage: theme dark | light | toggle', cls: 't-dim' }];
+        }
+        if (!['dark', 'light', 'toggle'].includes(want)) {
+          return [{ text: `theme: unknown theme '${want}' — try dark or light`, cls: 't-err' }];
+        }
+        const next = setTheme(want === 'toggle' ? (getTheme() === 'dark' ? 'light' : 'dark') : want);
+        return [{ text: `theme set to ${next}. the terminal stays dark — some things are sacred.`, cls: 't-dim' }];
+      },
     },
     contact: {
       desc: 'ways to reach me',
@@ -207,7 +300,7 @@ export function initTerminal(root, chipsEl, { reduceMotion = false } = {}) {
     },
     ls: {
       desc: 'list files',
-      run: () => ['about.txt  projects/  skills.conf  CV.pdf'],
+      run: () => ['about.txt  now.txt  work.log  projects/  skills.conf  CV.pdf'],
     },
     cat: {
       desc: 'cat a file',
@@ -215,6 +308,8 @@ export function initTerminal(root, chipsEl, { reduceMotion = false } = {}) {
         const f = args[0] || '';
         if (f === 'about.txt') return WHOAMI;
         if (f === 'skills.conf') return commands.skills.run();
+        if (f === 'now.txt') return commands.now.run();
+        if (f === 'work.log') return commands.work.run();
         if (f === 'CV.pdf') return [{ text: 'cat: CV.pdf: binary file — try `cv` instead', cls: 't-warn' }];
         return [{ text: `cat: ${f || 'missing operand'}: No such file`, cls: 't-err' }];
       },
@@ -229,7 +324,7 @@ export function initTerminal(root, chipsEl, { reduceMotion = false } = {}) {
     },
     uname: {
       desc: 'system info',
-      run: () => ['folio 2.0.0-petestech x86_64 GNU/HTML'],
+      run: () => ['folio 3.0.0-petestech x86_64 GNU/HTML'],
     },
     neofetch: {
       desc: 'the screenshot command',
@@ -237,11 +332,11 @@ export function initTerminal(root, chipsEl, { reduceMotion = false } = {}) {
         const info = [
           ['host', 'gh.petestech.com'],
           ['os', 'github pages (static)'],
-          ['shell', 'vanilla-js 2.0'],
+          ['shell', 'vanilla-js 3.0'],
           ['resolution', `${window.innerWidth}x${window.innerHeight}`],
           ['packages', '0 (none needed)'],
           ['uptime', 'since 2023'],
-          ['theme', 'dark [locked]'],
+          ['theme', `${getTheme()} (try \`theme\`)`],
         ];
         const rows = Math.max(NEOFETCH_ART.length, info.length);
         const artWidth = NEOFETCH_ART[0].length;
@@ -399,10 +494,10 @@ export function initTerminal(root, chipsEl, { reduceMotion = false } = {}) {
     busy = true;
     try {
       if (reduceMotion) {
-        print(['folio v2.0 — boot ok (14ms)', { text: 'type `help` to look around, or just scroll.', cls: 't-dim' }]);
+        print(['folio v3.0 — boot ok (14ms)', { text: 'type `help` to look around — or `work` to skip ahead.', cls: 't-dim' }]);
       } else {
-        await typeLine('folio v2.0 — boot ok (14ms)');
-        await typeLine('type `help` to look around, or just scroll.', 't-dim');
+        await typeLine('folio v3.0 — boot ok (14ms)');
+        await typeLine('type `help` to look around — or `work` to skip ahead.', 't-dim');
       }
     } finally {
       busy = false;
@@ -416,6 +511,6 @@ export function initTerminal(root, chipsEl, { reduceMotion = false } = {}) {
       bootObserver.disconnect();
       boot();
     }
-  }, { threshold: 0.4 });
+  }, { threshold: 0.15 });
   bootObserver.observe(root);
 }

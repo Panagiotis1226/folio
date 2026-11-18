@@ -11,20 +11,33 @@ sends. For a single page, modern platform features (CSS custom properties,
 fluid `clamp()` type, `IntersectionObserver`, ES modules) cover everything a
 toolchain would, with nothing to install and nothing to break.
 
-The site is dark-only by design.
+Dark is the default; a light theme is one click (or one `theme light` in the
+terminal) away, and the choice is remembered in `localStorage`.
 
 ## Structure
 
 ```
 index.html          the page
-styles.css          design tokens, layout, motion
-js/main.js          scroll reveals + nav scroll-spy
+styles.css          design tokens (dark + light), layout, motion
+js/main.js          theme toggle, scroll reveals, nav scroll-spy,
+                    homelab diagram ↔ project card linking
 js/terminal.js      the interactive terminal in the hero
 assets/             favicon, fonts (self-hosted woff2), og image
 CV.pdf              resume
 CNAME               custom domain for GitHub Pages — do not delete
 .nojekyll           tells GitHub Pages to serve files as-is
 ```
+
+Fonts are self-hosted and all under the SIL Open Font License: Instrument
+Serif (display), Inter (text), JetBrains Mono (labels and the terminal).
+
+The homelab topology is a hand-authored inline SVG in `index.html`. Each
+`<g class="sys" data-sys="…">` pairs with the project card carrying the same
+`data-sys`, which is how hovering one highlights the other.
+
+Content that appears in two places — the page and the terminal's `work`,
+`projects`, `skills`, `experience`, and `certs` commands — lives in
+`index.html` and in the tables at the top of `js/terminal.js`. Update both.
 
 ## Local development
 

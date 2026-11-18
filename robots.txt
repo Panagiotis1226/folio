@@ -1,2 +1,3 @@
 User-agent: *
-Disallow: /
+Allow: /assets/og.png
+Disallow: /assets

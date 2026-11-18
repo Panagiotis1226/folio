@@ -7,42 +7,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="color-scheme" content="dark">
-  <meta name="theme-color" content="#0a0e14">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0b0c0b">
 
-  <title>Panagiotis "Peter" Nicolacacos — Full-Stack Developer</title>
-  <meta name="description" content="Full-stack developer in Montréal — DEC in Computer Science, revenue operations &amp; AI automation at Polysleep, and years of hands-on experience building web applications and running the self-hosted Linux, Docker, and network-security infrastructure they live on.">
+  <title>Panagiotis "Peter" Nicolacacos — Developer · Automation · Infrastructure</title>
+  <meta name="description" content="Developer in Montréal. Revenue operations and AI automation at Polysleep, a DEC in Computer Science, and years of running the self-hosted Linux, Docker, and network-security infrastructure my own software lives on.">
   <link rel="canonical" href="https://gh.petestech.com/">
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://gh.petestech.com/">
-  <meta property="og:title" content="Panagiotis &quot;Peter&quot; Nicolacacos — Full-Stack Developer">
-  <meta property="og:description" content="Full-stack developer in Montréal. Web software on top, self-hosted Linux/Docker/security infrastructure underneath.">
+  <meta property="og:title" content="Panagiotis &quot;Peter&quot; Nicolacacos — Developer · Automation · Infrastructure">
+  <meta property="og:description" content="I automate the busywork and run the servers underneath. Ops automation at Polysleep, a self-hosted homelab at home.">
   <meta property="og:image" content="https://gh.petestech.com/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 
+  <link rel="preload" href="assets/fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
 
-  <script>document.documentElement.classList.add('js');</script>
+  <!-- Runs before first paint: flags JS and restores a saved theme choice. -->
+  <script>
+    (function () {
+      var d = document.documentElement;
+      d.classList.add('js');
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'light' || t === 'dark') d.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Panagiotis Nicolacacos",
+    "alternateName": "Peter Nicolacacos",
+    "url": "https://gh.petestech.com/",
+    "jobTitle": "Revenue Operations Analyst",
+    "worksFor": { "@type": "Organization", "name": "Polysleep" },
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "LaSalle College" },
+    "address": { "@type": "PostalAddress", "addressLocality": "Montréal", "addressRegion": "QC", "addressCountry": "CA" },
+    "sameAs": [
+      "https://github.com/Panagiotis1226",
+      "https://www.linkedin.com/in/panagiotis-nicolacacos"
+    ]
+  }
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
     <nav class="nav" aria-label="Primary">
-      <a class="wordmark" href="#top" aria-label="Home">pn@petestech<span class="wordmark-path">:~$</span><span class="cursor" aria-hidden="true"></span></a>
+      <a class="wordmark" href="#top" aria-label="Home">pn<span class="wordmark-at">@</span>petestech<span class="cursor" aria-hidden="true"></span></a>
       <ul class="nav-links">
         <li class="nav-optional"><a href="#about">about</a></li>
-        <li><a href="#projects">projects</a></li>
+        <li><a href="#work">work</a></li>
+        <li class="nav-optional"><a href="#homelab">homelab</a></li>
         <li class="nav-optional"><a href="#experience">experience</a></li>
         <li><a href="#contact">contact</a></li>
-        <li><a class="nav-cv" href="CV.pdf">cv.pdf</a></li>
       </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch colour theme" hidden>
+          <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.2 8.2 0 1 0 10.2 10.2z"/></svg>
+        </button>
+        <a class="nav-cv" href="CV.pdf">cv.pdf</a>
+      </div>
     </nav>
+    <div class="scroll-progress" aria-hidden="true"></div>
   </header>
 
   <main id="main">
@@ -50,28 +89,40 @@
     <!-- ============================ hero ============================ -->
     <section class="hero" id="top">
       <div class="hero-inner">
-        <div class="hero-copy">
-          <p class="hero-status">// montréal, qc — revenue ops @ polysleep — open to dev roles</p>
-          <h1>Panagiotis <span class="h1-nick">“Peter”</span> Nicolacacos</h1>
-          <p class="hero-role">full-stack development · self-hosted infrastructure · security</p>
-          <p class="hero-lead">
-            I build web software and run the servers it lives on — three years of
-            hands-on Linux, Docker, and network-security work in a homelab that
-            never stops breaking in educational ways.
-          </p>
-          <div class="hero-cta">
-            <a class="btn btn-accent" href="#projects">view projects <span aria-hidden="true">↓</span></a>
-            <a class="btn btn-ghost" href="CV.pdf" download>download cv</a>
-          </div>
+        <p class="hero-status"><span class="dot dot-live" aria-hidden="true"></span>Montréal, QC — open to dev, security &amp; IT roles</p>
+        <h1 class="hero-name">Panagiotis <span class="hero-nick">“Peter”</span> Nicolacacos</h1>
+        <p class="hero-display">
+          <span class="line">I automate the <em>busywork</em></span>
+          <span class="line">and run the <em>servers</em> underneath.</span>
+        </p>
+        <p class="hero-lead">
+          By day, revenue operations and AI automation at Polysleep. By night, a
+          self-hosted homelab — Linux, Docker, and a SIEM — that never stops
+          breaking in educational ways. Full-stack developer by training.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-accent" href="#work">see the work <span aria-hidden="true">↓</span></a>
+          <a class="btn btn-ghost" href="CV.pdf" download>download cv</a>
+          <span class="hero-links">
+            <a href="https://github.com/Panagiotis1226" target="_blank" rel="noopener noreferrer">github <span aria-hidden="true">↗</span></a>
+            <a href="https://www.linkedin.com/in/panagiotis-nicolacacos" target="_blank" rel="noopener noreferrer">linkedin <span aria-hidden="true">↗</span></a>
+          </span>
         </div>
+      </div>
 
-        <div class="hero-term">
+      <!-- console: interactive terminal + status board -->
+      <div class="console" data-reveal>
+        <div class="console-term">
           <p class="visually-hidden">
             Interactive terminal — a toy, not a gate: everything it prints is
             also written out in the page sections below.
           </p>
-          <div class="terminal corner-ticks" id="terminal" hidden>
-            <div class="terminal-bar" aria-hidden="true">peter@folio: ~</div>
+          <div class="terminal" id="terminal" hidden>
+            <div class="terminal-bar" aria-hidden="true">
+              <span class="terminal-dots"><i></i><i></i><i></i></span>
+              <span>peter@folio: ~</span>
+              <span class="terminal-hint">try `work`</span>
+            </div>
             <div class="terminal-body">
               <div class="terminal-out" role="log" aria-live="polite"></div>
               <div class="terminal-line">
@@ -83,241 +134,495 @@
           </div>
           <div class="terminal-chips" id="terminal-chips" hidden>
             <button type="button" data-cmd="help">help</button>
+            <button type="button" data-cmd="work">work</button>
             <button type="button" data-cmd="projects">projects</button>
             <button type="button" data-cmd="neofetch">neofetch</button>
             <button type="button" data-cmd="nmap gh.petestech.com">nmap</button>
           </div>
         </div>
+
+        <aside class="status-board" aria-label="Current status">
+          <p class="board-title">status <span>// what’s running right now</span></p>
+          <dl class="board-list">
+            <div>
+              <dt><span class="dot dot-live" aria-hidden="true"></span>working</dt>
+              <dd>Revenue Operations Analyst <span class="board-sub">Polysleep · e-commerce &amp; AI</span></dd>
+            </div>
+            <div>
+              <dt><span class="dot dot-live" aria-hidden="true"></span>operating</dt>
+              <dd>A homelab with four live systems <span class="board-sub">media · web · game servers · SIEM</span></dd>
+            </div>
+            <div>
+              <dt><span class="dot dot-progress" aria-hidden="true"></span>studying</dt>
+              <dd>Bachelor’s degree <span class="board-sub">ESG UQAM · in progress</span></dd>
+            </div>
+            <div>
+              <dt><span class="dot dot-progress" aria-hidden="true"></span>certifying</dt>
+              <dd>
+                Google Cybersecurity Certificate
+                <span class="meter" role="img" aria-label="3 of 8 courses completed"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="board-sub">3 of 8 courses done</span>
+              </dd>
+            </div>
+            <div>
+              <dt><span class="dot dot-open" aria-hidden="true"></span>next</dt>
+              <dd>Developer, security, or IT role <span class="board-sub">Montréal or remote · <a href="#contact">get in touch</a></span></dd>
+            </div>
+          </dl>
+        </aside>
       </div>
     </section>
 
     <!-- ============================ about ============================ -->
     <section class="section" id="about">
       <div class="section-head" data-reveal>
-        <span class="eyebrow">01 / about</span>
-        <h2>The whole stack, including the rack</h2>
+        <span class="eyebrow"><b>01</b> / about</span>
+        <h2>Two jobs that turned out to be <em>the same job</em></h2>
       </div>
       <div class="about-grid">
         <div class="prose" data-reveal>
-          <p>
-            I’m a computer science graduate (DEC, LaSalle College) in Montréal
-            with years of experience programming front-end and back-end
-            applications — and a habit of also running the infrastructure they
-            depend on. These days I do revenue operations at Polysleep, where I
-            automate order fulfillment, report Shopify and CX metrics, and lead
-            the team’s AI adoption, while continuing studies at ESG UQAM.
+          <p class="prose-lead">
+            I’m a computer science graduate in Montréal who likes the unglamorous
+            half of software: the part where it has to keep running.
           </p>
           <p>
-            Most of what I know comes from operating real systems: a self-hosted
-            photo and file platform my family actually uses, load-balanced web
-            services on Docker, and a Wazuh SIEM watching every endpoint on the
-            network. When something breaks at 2&nbsp;a.m., I’m the on-call.
+            At Polysleep I started on the customer-service side and moved into
+            revenue operations within months. Today I own the daily Shopify and
+            CX reporting, run batch order fulfillment across Cin7 and
+            ShipStation, and lead the team’s AI adoption — turning the
+            repetitive parts of the job into automations someone else can
+            maintain.
           </p>
           <p>
-            Before software, I led teams and operations — a soccer camp, nightlife
-            events, a textile office — so I’m comfortable owning outcomes, not
-            just tickets.
+            At home I run the infrastructure most people rent: a photo and file
+            platform my family actually uses, load-balanced web services on
+            Docker, game servers, and a Wazuh SIEM watching every endpoint on
+            the network. When something breaks at 2&nbsp;a.m., I’m the on-call.
+          </p>
+          <p>
+            Before software I led people — a soccer camp, a team roster,
+            nightlife events — which is why I measure work by whether it got
+            easier for whoever has to use it, not by tickets closed.
           </p>
         </div>
-        <dl class="facts" data-reveal data-reveal-delay="1">
-          <div><dt>location</dt><dd>Montréal, QC</dd></div>
-          <div><dt>education</dt><dd>DEC Computer Science — LaSalle College ✓ completed 2025</dd></div>
-          <div><dt>studying</dt><dd>Bachelor’s — ESG UQAM, in progress</dd></div>
-          <div><dt>currently</dt><dd>revenue ops &amp; AI automation @ Polysleep</dd></div>
-          <div><dt>focus</dt><dd>full-stack · linux · docker · security</dd></div>
-        </dl>
+
+        <div class="about-side" data-reveal data-reveal-delay="1">
+          <dl class="facts">
+            <div><dt>based</dt><dd>Montréal, QC</dd></div>
+            <div><dt>education</dt><dd>DEC Computer Science: Programming — LaSalle College, 2025</dd></div>
+            <div><dt>studying</dt><dd>Bachelor’s — ESG UQAM</dd></div>
+            <div><dt>focus</dt><dd>automation · full-stack · linux · security</dd></div>
+          </dl>
+          <ul class="hats" aria-label="Outside of software">
+            <li>
+              <span class="hat-tag">off the clock</span>
+              <p><strong>Short-form video.</strong> I shoot, edit, and publish for Reels, TikTok, and Shorts — and read the analytics afterwards.</p>
+            </li>
+            <li>
+              <span class="hat-tag">on the pitch</span>
+              <p><strong>Soccer coach.</strong> Years of head-coaching and running summer camps taught me most of what I know about leading a team.</p>
+            </li>
+          </ul>
+        </div>
       </div>
     </section>
 
-    <!-- ============================ projects ============================ -->
-    <section class="section" id="projects">
+    <!-- ============================ work ============================ -->
+    <section class="section" id="work">
       <div class="section-head" data-reveal>
-        <span class="eyebrow">02 / projects</span>
-        <h2>Selected work</h2>
+        <span class="eyebrow"><b>02</b> / work</span>
+        <h2>Automation that <em>removes</em> work</h2>
         <p class="section-note">
-          Homelab systems, not repo links — the demo is that they’re running.
-          Ask the terminal: <code>projects 3</code>
+          What I build at Polysleep: small, documented tools — mostly AI skills
+          wired into the systems the team already uses — each one replacing a
+          task somebody used to do by hand.
         </p>
       </div>
 
-      <article class="project corner-ticks" data-reveal>
-        <span class="project-index" aria-hidden="true">01</span>
-        <div class="project-body">
-          <h3>Game Server Deployment</h3>
-          <p>
-            Interconnected Minecraft servers behind a public-facing website,
-            wired together through JSON configuration — provisioning, networking,
-            and world data managed as config, not clicks.
-          </p>
-          <p class="project-arch" aria-label="Architecture">[players] → [proxy] → [mc-server ×n] ↔ [web]</p>
-        </div>
-        <dl class="project-meta">
-          <div><dt>stack</dt><dd>minecraft · web server · json config</dd></div>
-          <div><dt>status</dt><dd>operational</dd></div>
-        </dl>
-      </article>
+      <ul class="systems" data-reveal aria-label="Systems these automations connect">
+        <li>Shopify</li><li>Gorgias</li><li>Cin7</li><li>ShipStation</li><li>BigQuery</li><li>Excel</li><li>Claude</li>
+      </ul>
 
-      <article class="project corner-ticks" data-reveal data-reveal-delay="1">
-        <span class="project-index" aria-hidden="true">02</span>
-        <div class="project-body">
-          <h3>Media Server</h3>
+      <div class="work-grid">
+        <article class="work-card" data-reveal>
+          <p class="work-tag">reporting <span>shopify · gorgias</span></p>
+          <h3>The morning briefing</h3>
+          <p>Daily sales, order, and customer-experience metrics pulled and shaped for the leadership stand-up, so the day starts from numbers instead of guesses.</p>
+        </article>
+
+        <article class="work-card" data-reveal data-reveal-delay="1">
+          <p class="work-tag">risk <span>shopify · ai skill</span></p>
+          <h3>Order-risk screening</h3>
+          <p>A scan across every order in a date range that surfaces payment-risk patterns no single order page shows, ranked from high to cleared with a plain-language reason for each.</p>
+        </article>
+
+        <article class="work-card" data-reveal data-reveal-delay="2">
+          <p class="work-tag">fulfillment <span>shipstation · cin7</span></p>
+          <h3>Shipment consolidation</h3>
+          <p>Finds orders headed to the same recipient, combines them, and sets the packages per unit — a daily click-through chore reduced to one request.</p>
+        </article>
+
+        <article class="work-card" data-reveal>
+          <p class="work-tag">inventory <span>bigquery</span></p>
+          <h3>Stock answers on demand</h3>
+          <p>On-hand, open-sales, and backorder lookups straight from the data warehouse — one product or the whole catalogue — without anyone opening a dashboard.</p>
+        </article>
+
+        <article class="work-card" data-reveal data-reveal-delay="1">
+          <p class="work-tag">customer voice <span>ai skill · en / fr</span></p>
+          <h3>Review replies that don’t sound canned</h3>
+          <p>Drafts public replies in the brand’s voice and the reviewer’s language, with one hard rule: no two replies may reuse the same phrasing.</p>
+        </article>
+
+        <article class="work-card" data-reveal data-reveal-delay="2">
+          <p class="work-tag">forecasting <span>excel</span></p>
+          <h3>A faster forecast workbook</h3>
+          <p>Re-engineered a 60-plus-sheet, 300-plus-pivot planning workbook to recalculate faster — shared pivot caches, centralized links — verified value-for-value unchanged.</p>
+        </article>
+      </div>
+
+      <p class="work-foot" data-reveal>
+        Every automation ships with an SOP, so it outlives the person who wrote it.
+        Also in the toolbox: purchase-order PDFs parsed straight into spreadsheet
+        rows, and the small recurring chores — folder scaffolding, hours logging —
+        nobody should be doing by hand.
+      </p>
+    </section>
+
+    <!-- ============================ homelab ============================ -->
+    <section class="section" id="homelab">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow"><b>03</b> / homelab</span>
+        <h2>The rack: four systems, <em>always on</em></h2>
+        <p class="section-note">
+          No repo links here — the demo is that they’re running. Hover a system
+          to trace its path, or ask the terminal: <code>projects 2</code>
+        </p>
+      </div>
+
+      <figure class="lab" data-reveal>
+        <svg class="lab-map" id="lab-map" viewBox="0 0 1000 400" role="img" aria-labelledby="lab-title lab-desc">
+          <title id="lab-title">Homelab topology</title>
+          <desc id="lab-desc">Traffic enters through the edge router and fans out to three stacks: a reverse proxy in front of Immich and Nextcloud with on-premise storage; a load balancer in front of Apache containers; and a game proxy in front of Minecraft servers and their website. A Wazuh SIEM watches every endpoint.</desc>
+          <defs>
+            <marker id="arr" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arr" d="M0 0 8 4 0 8z"/></marker>
+            <marker id="arr-on" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arr-on" d="M0 0 8 4 0 8z"/></marker>
+          </defs>
+
+          <rect class="frame" x="384" y="20" width="600" height="276" rx="10"/>
+          <text class="frame-label" x="400" y="42">homelab · self-hosted on linux</text>
+
+          <g class="legend" aria-hidden="true">
+            <path class="edge" d="M16 349H50"/>
+            <text x="60" y="353">traffic</text>
+            <path class="edge edge-watch" d="M16 371H50"/>
+            <text x="60" y="375">monitoring</text>
+          </g>
+
+          <!-- shared entry -->
+          <g class="sys" data-sys="entry">
+            <path class="edge" d="M156 182H206"/>
+            <g class="node" transform="translate(16 150)">
+              <rect width="140" height="64" rx="8"/>
+              <text class="n-label" x="70" y="29">internet</text>
+              <text class="n-sub" x="70" y="46">visitors · devices</text>
+            </g>
+            <g class="node" transform="translate(206 150)">
+              <rect width="130" height="64" rx="8"/>
+              <text class="n-label" x="65" y="29">edge router</text>
+              <text class="n-sub" x="65" y="46">port forwarding</text>
+            </g>
+          </g>
+
+          <!-- media -->
+          <g class="sys" data-sys="media">
+            <path class="edge" d="M336 182C372 182 372 82 408 82"/>
+            <path class="edge" d="M558 82H618"/>
+            <path class="edge" d="M788 82H848"/>
+            <g class="node" transform="translate(408 56)">
+              <rect width="150" height="52" rx="8"/>
+              <text class="n-label" x="75" y="31">reverse proxy</text>
+            </g>
+            <g class="node" transform="translate(618 56)">
+              <rect width="170" height="52" rx="8"/>
+              <text class="n-label" x="85" y="23">immich · nextcloud</text>
+              <text class="n-sub" x="85" y="39">photos · files</text>
+            </g>
+            <g class="node" transform="translate(848 56)">
+              <rect width="112" height="52" rx="8"/>
+              <text class="n-label" x="56" y="23">storage</text>
+              <text class="n-sub" x="56" y="39">on-premise</text>
+            </g>
+          </g>
+
+          <!-- web -->
+          <g class="sys" data-sys="web">
+            <path class="edge" d="M336 182C372 182 372 162 408 162"/>
+            <path class="edge" d="M558 162H618"/>
+            <g class="node" transform="translate(408 136)">
+              <rect width="150" height="52" rx="8"/>
+              <text class="n-label" x="75" y="31">load balancer</text>
+            </g>
+            <g class="node" transform="translate(618 136)">
+              <rect width="170" height="52" rx="8"/>
+              <text class="n-label" x="85" y="23">apache ×n</text>
+              <text class="n-sub" x="85" y="39">docker compose</text>
+            </g>
+          </g>
+
+          <!-- game -->
+          <g class="sys" data-sys="game">
+            <path class="edge" d="M336 182C372 182 372 242 408 242"/>
+            <path class="edge" d="M558 242H618"/>
+            <path class="edge edge-both" d="M788 242H848"/>
+            <g class="node" transform="translate(408 216)">
+              <rect width="150" height="52" rx="8"/>
+              <text class="n-label" x="75" y="31">game proxy</text>
+            </g>
+            <g class="node" transform="translate(618 216)">
+              <rect width="170" height="52" rx="8"/>
+              <text class="n-label" x="85" y="23">mc-server ×n</text>
+              <text class="n-sub" x="85" y="39">json config</text>
+            </g>
+            <g class="node" transform="translate(848 216)">
+              <rect width="112" height="52" rx="8"/>
+              <text class="n-label" x="56" y="23">web</text>
+              <text class="n-sub" x="56" y="39">public site</text>
+            </g>
+          </g>
+
+          <!-- security -->
+          <g class="sys" data-sys="sec">
+            <path class="edge edge-watch" d="M483 328V298"/>
+            <path class="edge edge-watch" d="M703 328V298"/>
+            <path class="edge edge-watch" d="M904 328V298"/>
+            <g class="node" transform="translate(408 328)">
+              <rect width="552" height="52" rx="8"/>
+              <text class="n-label" x="276" y="23">wazuh siem</text>
+              <text class="n-sub" x="276" y="39">agents on every endpoint → manager → dashboard &amp; alerts</text>
+            </g>
+          </g>
+        </svg>
+        <figcaption class="visually-hidden">Topology of the four homelab systems described below.</figcaption>
+      </figure>
+
+      <div class="project-grid">
+        <article class="project" data-sys="media" data-reveal tabindex="0">
+          <header>
+            <span class="project-index" aria-hidden="true">01</span>
+            <h3>Media Server</h3>
+            <span class="project-status"><span class="dot dot-live" aria-hidden="true"></span>operational — daily users</span>
+          </header>
           <p>
             A fully on-premise photo and file platform — Immich for photos,
             Nextcloud for everything else — that replaced the household’s paid
             iCloud storage. Backups, updates, and uptime are on me.
           </p>
           <p class="project-arch" aria-label="Architecture">[phones · laptops] → [reverse proxy] → [immich · nextcloud] → [storage]</p>
-        </div>
-        <dl class="project-meta">
-          <div><dt>stack</dt><dd>immich · nextcloud · linux</dd></div>
-          <div><dt>status</dt><dd>operational — daily users</dd></div>
-        </dl>
-      </article>
+          <p class="project-stack">immich · nextcloud · linux</p>
+        </article>
 
-      <article class="project corner-ticks" data-reveal data-reveal-delay="2">
-        <span class="project-index" aria-hidden="true">03</span>
-        <div class="project-body">
-          <h3>Web Services</h3>
+        <article class="project" data-sys="web" data-reveal data-reveal-delay="1" tabindex="0">
+          <header>
+            <span class="project-index" aria-hidden="true">02</span>
+            <h3>Web Services</h3>
+            <span class="project-status"><span class="dot dot-live" aria-hidden="true"></span>operational</span>
+          </header>
           <p>
             Horizontally scalable Apache services on a Docker Compose stack —
             load-balanced and port-forwarded through the network edge, sized to
             absorb traffic spikes without falling over.
           </p>
           <p class="project-arch" aria-label="Architecture">[clients] → [edge router] → [load balancer] → [apache ×n]</p>
-        </div>
-        <dl class="project-meta">
-          <div><dt>stack</dt><dd>apache · docker compose · load balancing</dd></div>
-          <div><dt>status</dt><dd>operational</dd></div>
-        </dl>
-      </article>
+          <p class="project-stack">apache · docker compose · load balancing</p>
+        </article>
 
-      <article class="project corner-ticks" data-reveal data-reveal-delay="3">
-        <span class="project-index" aria-hidden="true">04</span>
-        <div class="project-body">
-          <h3>Network Security</h3>
+        <article class="project" data-sys="game" data-reveal tabindex="0">
+          <header>
+            <span class="project-index" aria-hidden="true">03</span>
+            <h3>Game Server Deployment</h3>
+            <span class="project-status"><span class="dot dot-live" aria-hidden="true"></span>operational</span>
+          </header>
           <p>
-            Wazuh SIEM agents on every endpoint in the network, feeding a central
-            dashboard — plus a sweep that scanned and closed unnecessary open
-            ports to shrink the attack surface.
+            Interconnected Minecraft servers behind a public-facing website,
+            wired together through JSON configuration — provisioning,
+            networking, and world data managed as config, not clicks.
+          </p>
+          <p class="project-arch" aria-label="Architecture">[players] → [proxy] → [mc-server ×n] ↔ [web]</p>
+          <p class="project-stack">minecraft · web server · json config</p>
+        </article>
+
+        <article class="project" data-sys="sec" data-reveal data-reveal-delay="1" tabindex="0">
+          <header>
+            <span class="project-index" aria-hidden="true">04</span>
+            <h3>Network Security</h3>
+            <span class="project-status"><span class="dot dot-live" aria-hidden="true"></span>operational — always watching</span>
+          </header>
+          <p>
+            Wazuh SIEM agents on every endpoint in the network, feeding a
+            central dashboard — plus a sweep that scanned and closed unnecessary
+            open ports to shrink the attack surface.
           </p>
           <p class="project-arch" aria-label="Architecture">[endpoints ×n] → [wazuh agents] → [siem manager] → [alerts]</p>
-        </div>
-        <dl class="project-meta">
-          <div><dt>stack</dt><dd>wazuh siem · port scanning · hardening</dd></div>
-          <div><dt>status</dt><dd>operational — always watching</dd></div>
-        </dl>
-      </article>
+          <p class="project-stack">wazuh siem · port scanning · hardening</p>
+        </article>
+      </div>
     </section>
 
     <!-- ============================ experience ============================ -->
     <section class="section" id="experience">
       <div class="section-head" data-reveal>
-        <span class="eyebrow">03 / experience</span>
-        <h2>Experience &amp; education</h2>
+        <span class="eyebrow"><b>04</b> / experience</span>
+        <h2>Experience &amp; <em>education</em></h2>
       </div>
+
       <ol class="timeline">
-        <li class="timeline-item" data-reveal>
-          <span class="timeline-date">2025 — present</span>
+        <li class="timeline-item is-current" data-reveal>
+          <span class="timeline-date">Dec 2025 — present</span>
           <div class="timeline-body">
             <h3>Revenue Operations Analyst · E-commerce &amp; AI <span class="timeline-org">— Polysleep</span></h3>
-            <p>Daily Shopify sales and Gorgias CX reporting for leadership briefings; batch order fulfillment across Cin7 and ShipStation; SOPs that keep automations maintainable; spearheaded the team’s AI implementation and prompt engineering.</p>
+            <p>Joined as a Customer Service Specialist; moved into revenue operations in 2026. Daily Shopify sales and Gorgias CX reporting for leadership briefings, batch order fulfillment across Cin7 and ShipStation, SOPs that keep automations maintainable, and the lead on the team’s AI implementation and prompt engineering.</p>
           </div>
         </li>
-        <li class="timeline-item" data-reveal data-reveal-delay="1">
+        <li class="timeline-item is-current" data-reveal>
           <span class="timeline-date">2025 — present</span>
           <div class="timeline-body">
             <h3>Bachelor’s degree <span class="timeline-org">— ESG UQAM, Montréal</span></h3>
             <p>Continuing studies at UQAM’s school of management.</p>
           </div>
         </li>
-        <li class="timeline-item" data-reveal data-reveal-delay="2">
+        <li class="timeline-item is-current" data-reveal>
+          <span class="timeline-date">May 2025 — present</span>
+          <div class="timeline-body">
+            <h3>Content Creator <span class="timeline-org">— self-employed</span></h3>
+            <p>Short-form video for Instagram Reels, TikTok, and YouTube Shorts — editing, publishing, scheduling, and analytics.</p>
+          </div>
+        </li>
+        <li class="timeline-item" data-reveal>
           <span class="timeline-date">2025</span>
           <div class="timeline-body">
             <h3>Programming Intern · Full-Stack <span class="timeline-org">— Jaqln.ai</span></h3>
             <p>Full-stack web development internship on an AI product.</p>
           </div>
         </li>
-        <li class="timeline-item" data-reveal data-reveal-delay="3">
+        <li class="timeline-item" data-reveal>
           <span class="timeline-date">2024</span>
           <div class="timeline-body">
             <h3>Software QA Analyst <span class="timeline-org">— PlaytestCloud</span></h3>
             <p>Quality-assurance analysis for mobile-game playtesting.</p>
           </div>
         </li>
-        <li class="timeline-item" data-reveal data-reveal-delay="4">
-          <span class="timeline-date">summer 2024</span>
+        <li class="timeline-item" data-reveal>
+          <span class="timeline-date">Summer 2024</span>
           <div class="timeline-body">
             <h3>Operations Manager <span class="timeline-org">— CSRDP Soccer Camp</span></h3>
             <p>Led the staff team and cut redundant tasks for a 10% productivity gain; scheduled hours to prevent overstaffing and burnout; trained new hires.</p>
           </div>
         </li>
-        <li class="timeline-item" data-reveal data-reveal-delay="4">
+        <li class="timeline-item" data-reveal>
           <span class="timeline-date">2023 — 2025</span>
           <div class="timeline-body">
             <h3>DEC Computer Science: Programming <span class="timeline-org">— LaSalle College, Montréal</span></h3>
             <p>Completed July 2025 — the formal grounding under years of self-directed systems work.</p>
           </div>
         </li>
+        <li class="timeline-item timeline-earlier" data-reveal>
+          <span class="timeline-date">2020 — 2025</span>
+          <div class="timeline-body">
+            <h3>Earlier <span class="timeline-org">— people, events, and operations</span></h3>
+            <p>Event promoter for Montréal venues, where flyers and social content lifted sales 15% · Head coach and camp lead at Soccer Saint-Laurent · Administrative assistant at SubarTextiles, handling orders, invoices, and clients.</p>
+          </div>
+        </li>
       </ol>
     </section>
 
-    <!-- ============================ skills ============================ -->
-    <section class="section" id="skills">
+    <!-- ============================ toolkit ============================ -->
+    <section class="section" id="toolkit">
       <div class="section-head" data-reveal>
-        <span class="eyebrow">04 / skills</span>
-        <h2>Skills</h2>
+        <span class="eyebrow"><b>05</b> / toolkit</span>
+        <h2>Skills &amp; <em>certifications</em></h2>
       </div>
-      <dl class="skills-list" data-reveal>
-        <div class="skills-row">
-          <dt>languages &amp; frameworks</dt>
-          <dd><strong>Python</strong> · <strong>JavaScript</strong> · React · <strong>C#</strong> · Java · PHP · Swift · Bash · HTML/CSS · .NET</dd>
-        </div>
-        <div class="skills-row">
-          <dt>infrastructure &amp; ops</dt>
-          <dd><strong>Linux</strong> · <strong>Docker</strong> · Nginx · Proxmox · AWS · GCP · Node.js · Ollama · CLI</dd>
-        </div>
-        <div class="skills-row">
-          <dt>tools &amp; platforms</dt>
-          <dd>Git · VS Code · Visual Studio · Xcode · IntelliJ · VMware · Shopify · Cin7 · ShipStation</dd>
-        </div>
-      </dl>
-    </section>
 
-    <!-- ============================ certifications ============================ -->
-    <section class="section" id="certifications">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">05 / certifications</span>
-        <h2>Certifications</h2>
+      <div class="toolkit-grid">
+        <dl class="skills" data-reveal>
+          <div class="skills-row">
+            <dt>languages &amp; frameworks</dt>
+            <dd>
+              <ul class="chips">
+                <li class="chip-strong">Python</li><li class="chip-strong">JavaScript</li><li class="chip-strong">C#</li><li>React</li><li>Node.js</li><li>Java</li><li>PHP</li><li>Swift</li><li>Bash</li><li>HTML/CSS</li><li>.NET</li>
+              </ul>
+            </dd>
+          </div>
+          <div class="skills-row">
+            <dt>infrastructure &amp; security</dt>
+            <dd>
+              <ul class="chips">
+                <li class="chip-strong">Linux</li><li class="chip-strong">Docker</li><li>Nginx</li><li>Proxmox</li><li>Wazuh SIEM</li><li>VPN</li><li>AWS</li><li>GCP</li><li>Server administration</li>
+              </ul>
+            </dd>
+          </div>
+          <div class="skills-row">
+            <dt>automation &amp; AI</dt>
+            <dd>
+              <ul class="chips">
+                <li class="chip-strong">Prompt engineering</li><li class="chip-strong">Claude skills</li><li>Ollama</li><li>APIs</li><li>BigQuery</li><li>Excel</li><li>SOP writing</li>
+              </ul>
+            </dd>
+          </div>
+          <div class="skills-row">
+            <dt>platforms &amp; tools</dt>
+            <dd>
+              <ul class="chips">
+                <li>Shopify</li><li>Gorgias</li><li>Cin7</li><li>ShipStation</li><li>Git</li><li>VS Code</li><li>Visual Studio</li><li>Xcode</li><li>IntelliJ</li><li>VMware</li>
+              </ul>
+            </dd>
+          </div>
+        </dl>
+
+        <div class="certs" data-reveal data-reveal-delay="1">
+          <div class="cert">
+            <p class="cert-org">google · cybersecurity certificate <span class="cert-state">in progress</span></p>
+            <span class="meter meter-lg" role="img" aria-label="3 of 8 courses completed"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></span>
+            <ul>
+              <li>Foundations of Cybersecurity</li>
+              <li>Play It Safe: Manage Security Risks</li>
+              <li>Connect and Protect: Networks and Network Security</li>
+            </ul>
+          </div>
+          <div class="cert">
+            <p class="cert-org">aws educate</p>
+            <ul>
+              <li>Getting Started with Compute</li>
+              <li>Getting Started with Networking</li>
+              <li>Cloud 101</li>
+            </ul>
+          </div>
+          <div class="cert">
+            <p class="cert-org">codecademy</p>
+            <ul>
+              <li>JavaScript · Node.js · Command Line</li>
+              <li>iOS Development</li>
+              <li>Intro to Ethical Hacking · Intro to Cybersecurity</li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <dl class="certs-list" data-reveal>
-        <div class="skills-row">
-          <dt>google cybersecurity</dt>
-          <dd>Foundations of Cybersecurity · Manage Security Risks · Networks and Network Security — 3 of 8 courses, in progress</dd>
-        </div>
-        <div class="skills-row">
-          <dt>aws educate</dt>
-          <dd>Getting Started with Compute · Getting Started with Networking · Cloud 101</dd>
-        </div>
-        <div class="skills-row">
-          <dt>codecademy</dt>
-          <dd>JavaScript · Node.js · Command Line · iOS Development · Intro to Ethical Hacking &amp; Cybersecurity</dd>
-        </div>
-      </dl>
     </section>
 
     <!-- ============================ contact ============================ -->
-    <section class="section" id="contact">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">06 / contact</span>
-        <h2>Get in touch</h2>
-      </div>
-      <div class="contact-body" data-reveal>
-        <p class="contact-lead">Looking for a developer who can also run the infrastructure? Email me.</p>
-        <a class="contact-email" href="mailto:PeterNicolacacos@gmail.com">PeterNicolacacos@gmail.com</a>
+    <section class="section contact" id="contact">
+      <div class="contact-card" data-reveal>
+        <span class="eyebrow"><b>06</b> / contact</span>
+        <h2>Need a developer who can also <em>run the infrastructure</em>?</h2>
+        <p class="contact-lead">I’m open to developer, security, and IT roles in Montréal or remote. Email is the fastest way to reach me.</p>
+        <div class="contact-row">
+          <a class="contact-email" href="mailto:PeterNicolacacos@gmail.com">PeterNicolacacos@gmail.com</a>
+          <button class="copy-btn" id="copy-email" type="button" data-copy="PeterNicolacacos@gmail.com" hidden>copy</button>
+        </div>
         <ul class="contact-links">
           <li><a href="https://github.com/Panagiotis1226" target="_blank" rel="noopener noreferrer">github <span aria-hidden="true">↗</span></a></li>
           <li><a href="https://www.linkedin.com/in/panagiotis-nicolacacos" target="_blank" rel="noopener noreferrer">linkedin <span aria-hidden="true">↗</span></a></li>
-          <li><a href="CV.pdf" download>cv.pdf</a></li>
+          <li><a href="CV.pdf" download>cv.pdf <span aria-hidden="true">↓</span></a></li>
         </ul>
       </div>
     </section>
@@ -328,7 +633,7 @@
       <span class="colophon-cmd" aria-hidden="true">$ cat colophon.txt</span>
       hand-written html/css/js — no frameworks, no build step. hosted on github pages.
     </p>
-    <p class="copyright">© 2026 Panagiotis Nicolacacos</p>
+    <p class="copyright">© 2026 Panagiotis Nicolacacos · <a href="#top">back to top ↑</a></p>
   </footer>
 
   <script type="module" src="js/main.js"></script>
