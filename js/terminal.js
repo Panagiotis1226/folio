@@ -14,28 +14,28 @@ const LINKS = {
 const PROJECTS = [
   {
     sys: 'media',
-    name: 'Media Server',
+    name: 'Media server',
     stack: 'immich · nextcloud · linux',
     desc: 'Fully on-premise photo and file platform that replaced the household’s paid iCloud storage. Backups, updates, and uptime included.',
     arch: '[phones · laptops] → [reverse proxy] → [immich · nextcloud] → [storage]',
   },
   {
     sys: 'web',
-    name: 'Web Services',
+    name: 'Web services',
     stack: 'apache · docker compose · load balancing',
     desc: 'Horizontally scalable Apache services on Docker Compose — load-balanced and port-forwarded through the network edge.',
     arch: '[clients] → [edge router] → [load balancer] → [apache ×n]',
   },
   {
     sys: 'game',
-    name: 'Game Server Deployment',
+    name: 'Game servers',
     stack: 'minecraft · web server · json config',
     desc: 'Interconnected Minecraft servers behind a public-facing website — provisioning, networking, and world data managed as JSON config.',
     arch: '[players] → [proxy] → [mc-server ×n] ↔ [web]',
   },
   {
     sys: 'sec',
-    name: 'Network Security',
+    name: 'Network security',
     stack: 'wazuh siem · port scanning · hardening',
     desc: 'Wazuh SIEM agents on every endpoint feeding a central dashboard; unnecessary open ports scanned and closed.',
     arch: '[endpoints ×n] → [wazuh agents] → [siem manager] → [alerts]',
@@ -43,6 +43,11 @@ const PROJECTS = [
 ];
 
 // Automation work at Polysleep — mirrors the "work" section of the page.
+const OUTCOMES = [
+  ['order tracking', '2 hrs a day, by hand', 'automated — runs on its own'],
+  ['customer service', 'repetitive tickets, by hand', 'an AI agent — hours back a week'],
+];
+
 const WORK = [
   ['reporting', 'the morning briefing — daily sales, order & CX metrics'],
   ['risk', 'order-risk screening across every order in a date range'],
@@ -50,37 +55,39 @@ const WORK = [
   ['inventory', 'stock answers straight from the data warehouse'],
   ['voice', 'review replies in the brand voice, en / fr'],
   ['forecasting', 'a faster 300-plus-pivot planning workbook'],
+  ['intake', 'purchase-order PDFs parsed into spreadsheet rows'],
 ];
 
 const SKILLS = [
-  ['automation', 'Prompt engineering · Claude skills · SOP writing · Ollama · APIs · BigQuery · Excel'],
-  ['systems', 'Shopify · Cin7 · ShipStation · Gorgias · Asana · Microsoft 365'],
-  ['infra & sec', 'Linux · Docker · Nginx · Proxmox · Wazuh SIEM · VPN · AWS · GCP · VMware'],
-  ['scripting', 'Python · JavaScript · Bash · Git · C# · Java · PHP · Swift · HTML/CSS'],
+  ['automation', 'Prompt engineering · Claude skills · AI agents · SOP writing · Ollama · APIs'],
+  ['systems', 'Shopify · Cin7 · ShipStation · Gorgias · BigQuery · Excel · Asana · Microsoft 365'],
+  ['infra', 'Linux · Docker · Nginx · Proxmox · Wazuh SIEM · VPN · AWS · GCP · VMware'],
+  ['scripting', 'Python · JavaScript · Bash · Git'],
 ];
 
 const EXPERIENCE = [
-  ['dec 2025 →', 'Business Systems & Operations Analyst · E-commerce & AI — Polysleep'],
-  ['2025 →', 'Bachelor’s degree — ESG UQAM (in progress)'],
+  ['dec 2025 →', 'Business Systems & Operations Analyst — Polysleep'],
   ['may 2025 →', 'Content Creator — self-employed'],
-  ['2025', 'Programming Intern · Full-Stack — Jaqln.ai'],
+  ['2025 →', 'Bachelor’s degree — ESG UQAM (in progress)'],
+  ['2025', 'Programming Intern — Jaqln.ai'],
   ['2024', 'Software QA Analyst — PlaytestCloud'],
   ['summer 2024', 'Operations Manager — CSRDP Soccer Camp'],
   ['2023 – 2025', 'DEC Computer Science: Programming — LaSalle College'],
 ];
 
 const CERTS = [
-  ['google', 'Cybersecurity courses — Foundations · Security Risks · Network Security'],
+  ['google', 'Foundations of Cybersecurity · Manage Security Risks · Network Security'],
   ['aws educate', 'Compute · Networking · Cloud 101'],
   ['codecademy', 'JavaScript · Node.js · Command Line · iOS · Ethical Hacking · Cybersecurity'],
 ];
 
 const WHOAMI = [
   { text: 'Panagiotis “Peter” Nicolacacos', cls: 't-bright' },
-  'CS grad (DEC, LaSalle College) in Montréal. Business systems',
-  '& AI automation at Polysleep by day. I automate the',
-  'busywork and run the servers underneath — linux, docker,',
-  'and a homelab that never stops breaking in educational ways.',
+  'Business Systems & Operations Analyst at Polysleep, in',
+  'Montréal. I find the repetitive work inside a business and',
+  'automate it — then come home and run my own servers:',
+  'linux, docker, and a homelab that never stops breaking in',
+  'educational ways.',
 ];
 
 const NOW = [
@@ -102,7 +109,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 export function initTerminal(root, chipsEl, {
   reduceMotion = false,
-  getTheme = () => 'dark',
+  getTheme = () => 'light',
   setTheme = (t) => t,
   traceSystem = () => {},
 } = {}) {
@@ -111,7 +118,7 @@ export function initTerminal(root, chipsEl, {
   const out = root.querySelector('.terminal-out');
   const body = root.querySelector('.terminal-body');
   const input = root.querySelector('.terminal-input');
-  const promptText = 'peter@folio:~$';
+  const promptText = 'peter@rack:~$';
 
   const history = [];
   let historyIndex = -1;
@@ -205,9 +212,15 @@ export function initTerminal(root, chipsEl, {
       ]),
     },
     work: {
-      desc: 'automation I build at Polysleep',
+      desc: 'what I automated at Polysleep',
       run: () => [
-        { text: 'automation that removes work:', cls: 't-dim' },
+        { text: 'work that stopped being work:', cls: 't-dim' },
+        ...OUTCOMES.flatMap(([k, before, after]) => [
+          [{ text: `  ${k}`, cls: 't-bright' }],
+          [{ text: '    before  ', cls: 't-dim' }, { text: before, cls: 't-warn' }],
+          [{ text: '    after   ', cls: 't-dim' }, { text: after, cls: 't-accent' }],
+        ]),
+        { text: 'also running:', cls: 't-dim' },
         ...WORK.map(([k, v]) => [
           { text: `  ${k.padEnd(13)}`, cls: 't-accent' },
           { text: v },
@@ -250,7 +263,7 @@ export function initTerminal(root, chipsEl, {
       ]),
     },
     certs: {
-      desc: 'certifications',
+      desc: 'courses completed',
       run: () => CERTS.map(([k, v]) => [
         { text: `  ${k.padEnd(14)}`, cls: 't-dim' },
         { text: v },
@@ -314,7 +327,7 @@ export function initTerminal(root, chipsEl, {
     },
     uname: {
       desc: 'system info',
-      run: () => ['folio 3.0.0-petestech x86_64 GNU/HTML'],
+      run: () => ['folio 4.0.0-petestech x86_64 GNU/HTML'],
     },
     neofetch: {
       desc: 'the screenshot command',
@@ -322,7 +335,7 @@ export function initTerminal(root, chipsEl, {
         const info = [
           ['host', 'gh.petestech.com'],
           ['os', 'github pages (static)'],
-          ['shell', 'vanilla-js 3.0'],
+          ['shell', 'vanilla-js 4.0'],
           ['resolution', `${window.innerWidth}x${window.innerHeight}`],
           ['packages', '0 (none needed)'],
           ['uptime', 'since 2023'],
@@ -484,10 +497,10 @@ export function initTerminal(root, chipsEl, {
     busy = true;
     try {
       if (reduceMotion) {
-        print(['folio v3.0 — boot ok (14ms)', { text: 'type `help` to look around — or `work` to skip ahead.', cls: 't-dim' }]);
+        print(['rack online — 4 systems up', { text: 'type `help` to look around, or `projects 1` to trace a system.', cls: 't-dim' }]);
       } else {
-        await typeLine('folio v3.0 — boot ok (14ms)');
-        await typeLine('type `help` to look around — or `work` to skip ahead.', 't-dim');
+        await typeLine('rack online — 4 systems up');
+        await typeLine('type `help` to look around, or `projects 1` to trace a system.', 't-dim');
       }
     } finally {
       busy = false;

@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <!--
-  hand-written html/css/js. no frameworks, no build step, no generator.
-  view source is the tour: styles.css, js/main.js, js/terminal.js
+  plain html/css/js. no frameworks, no build step, no trackers.
+  the files here are the files the server sends: styles.css, js/main.js, js/terminal.js
 -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="color-scheme" content="dark light">
-  <meta name="theme-color" content="#0b0c0b">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f1ea">
 
   <title>Panagiotis "Peter" Nicolacacos — Business Systems · Automation · Infrastructure</title>
-  <meta name="description" content="Business systems and operations analyst in Montréal. AI automation at Polysleep, a DEC in Computer Science, and years of running my own self-hosted Linux, Docker, and network-security infrastructure.">
+  <meta name="description" content="Business Systems &amp; Operations Analyst in Montréal. I find the repetitive work inside a business and automate it — two hours a day given back on order tracking alone — and run my own self-hosted infrastructure after hours.">
   <link rel="canonical" href="https://gh.petestech.com/">
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://gh.petestech.com/">
   <meta property="og:title" content="Panagiotis &quot;Peter&quot; Nicolacacos — Business Systems · Automation · Infrastructure">
-  <meta property="og:description" content="I automate the busywork and run the servers underneath. Ops automation at Polysleep, a self-hosted homelab at home.">
+  <meta property="og:description" content="Two hours a day, given back. I find the repetitive work inside a business and build the automation that makes it run itself.">
   <meta property="og:image" content="https://gh.petestech.com/assets/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -30,15 +30,17 @@
   <link rel="preload" href="assets/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
 
-  <!-- Runs before first paint: flags JS and restores a saved theme choice. -->
+  <!-- Runs before first paint: flags JS and picks the theme —
+       a saved choice if there is one, otherwise the system setting. -->
   <script>
     (function () {
-      var d = document.documentElement;
+      var d = document.documentElement, t = null;
       d.classList.add('js');
-      try {
-        var t = localStorage.getItem('theme');
-        if (t === 'light' || t === 'dark') d.dataset.theme = t;
-      } catch (e) {}
+      try { t = localStorage.getItem('theme'); } catch (e) {}
+      if (t !== 'light' && t !== 'dark') {
+        t = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      d.dataset.theme = t;
     })();
   </script>
 
@@ -65,20 +67,18 @@
 
   <header class="site-header">
     <nav class="nav" aria-label="Primary">
-      <a class="wordmark" href="#top" aria-label="Home">pn<span class="wordmark-at">@</span>petestech<span class="cursor" aria-hidden="true"></span></a>
+      <a class="wordmark" href="#top" aria-label="Home"><span class="dot dot-live" aria-hidden="true"></span>Peter Nicolacacos</a>
       <ul class="nav-links">
-        <li class="nav-optional"><a href="#about">about</a></li>
         <li><a href="#work">work</a></li>
+        <li class="nav-optional"><a href="#approach">approach</a></li>
         <li class="nav-optional"><a href="#homelab">homelab</a></li>
-        <li class="nav-optional"><a href="#experience">experience</a></li>
+        <li class="nav-optional"><a href="#about">about</a></li>
         <li><a href="#contact">contact</a></li>
       </ul>
-      <div class="nav-actions">
-        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch colour theme" hidden>
-          <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></svg>
-          <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.2 8.2 0 1 0 10.2 10.2z"/></svg>
-        </button>
-      </div>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch colour theme" hidden>
+        <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.2 8.2 0 1 0 10.2 10.2z"/></svg>
+      </button>
     </nav>
     <div class="scroll-progress" aria-hidden="true"></div>
   </header>
@@ -88,206 +88,198 @@
     <!-- ============================ hero ============================ -->
     <section class="hero" id="top">
       <div class="hero-inner">
-        <p class="hero-status"><span class="dot dot-live" aria-hidden="true"></span>Montréal, QC — open to systems, automation &amp; IT roles</p>
-        <h1 class="hero-name">Panagiotis <span class="hero-nick">“Peter”</span> Nicolacacos</h1>
-        <p class="hero-display">
-          <span class="line">I automate the <em>busywork</em></span>
-          <span class="line">and run the <em>servers</em> underneath.</span>
-        </p>
-        <p class="hero-lead">
-          By day, business systems and AI automation at Polysleep. By night, a
-          self-hosted homelab — Linux, Docker, and a SIEM — that never stops
-          breaking in educational ways. Computer science by training.
-        </p>
-        <div class="hero-cta">
-          <a class="btn btn-accent" href="#work">see the work <span aria-hidden="true">↓</span></a>
-          <a class="btn btn-ghost" href="#contact">get in touch</a>
-          <span class="hero-links">
-            <a href="https://github.com/Panagiotis1226" target="_blank" rel="noopener noreferrer">github <span aria-hidden="true">↗</span></a>
-            <a href="https://www.linkedin.com/in/panagiotis-nicolacacos" target="_blank" rel="noopener noreferrer">linkedin <span aria-hidden="true">↗</span></a>
-          </span>
-        </div>
-      </div>
-
-      <!-- console: interactive terminal + status board -->
-      <div class="console" data-reveal>
-        <div class="console-term">
-          <p class="visually-hidden">
-            Interactive terminal — a toy, not a gate: everything it prints is
-            also written out in the page sections below.
+        <div class="hero-copy">
+          <p class="hero-status"><span class="dot dot-live" aria-hidden="true"></span>Montréal, QC — open to systems, automation &amp; IT roles</p>
+          <h1 class="hero-name">Panagiotis <span class="hero-nick">“Peter”</span> Nicolacacos</h1>
+          <p class="hero-role">Business Systems &amp; Operations Analyst · Polysleep</p>
+          <p class="hero-display">
+            <span class="line">Two hours a day,</span>
+            <span class="line"><em>given back.</em></span>
           </p>
-          <div class="terminal" id="terminal" hidden>
-            <div class="terminal-bar" aria-hidden="true">
-              <span class="terminal-dots"><i></i><i></i><i></i></span>
-              <span>peter@folio: ~</span>
-              <span class="terminal-hint">try `work`</span>
-            </div>
-            <div class="terminal-body">
-              <div class="terminal-out" role="log" aria-live="polite"></div>
-              <div class="terminal-line">
-                <span class="terminal-prompt" aria-hidden="true">peter@folio:~$</span>
-                <input class="terminal-input" type="text" autocomplete="off" autocapitalize="off"
-                       autocorrect="off" spellcheck="false" aria-label="Terminal input" enterkeyhint="send">
-              </div>
-            </div>
-          </div>
-          <div class="terminal-chips" id="terminal-chips" hidden>
-            <button type="button" data-cmd="help">help</button>
-            <button type="button" data-cmd="work">work</button>
-            <button type="button" data-cmd="projects">projects</button>
-            <button type="button" data-cmd="neofetch">neofetch</button>
-            <button type="button" data-cmd="nmap gh.petestech.com">nmap</button>
+          <p class="hero-lead">
+            I find the repetitive work inside a business and build the
+            automation that makes it run itself. At Polysleep that’s order
+            tracking, customer service, and reporting. After hours, it’s my own
+            servers.
+          </p>
+          <div class="hero-cta">
+            <a class="btn btn-accent" href="#work">see what changed <span aria-hidden="true">↓</span></a>
+            <a class="btn btn-ghost" href="#contact">get in touch</a>
           </div>
         </div>
 
-        <aside class="status-board" aria-label="Current status">
-          <p class="board-title">status <span>// what’s running right now</span></p>
-          <dl class="board-list">
-            <div>
-              <dt><span class="dot dot-live" aria-hidden="true"></span>working</dt>
-              <dd>Business Systems &amp; Operations Analyst <span class="board-sub">Polysleep · e-commerce &amp; AI</span></dd>
+        <!-- the proof: one workday, before and after the automation -->
+        <figure class="day" id="day">
+          <div class="day-head">
+            <p class="day-title">one workday <span>· 8 hours</span></p>
+            <div class="day-toggle" role="group" aria-label="Show the workday before or after automation" hidden>
+              <button type="button" data-state="before" aria-pressed="true">before</button>
+              <button type="button" data-state="after" aria-pressed="false">after</button>
             </div>
-            <div>
-              <dt><span class="dot dot-live" aria-hidden="true"></span>operating</dt>
-              <dd>A homelab with four live systems <span class="board-sub">media · web · game servers · SIEM</span></dd>
-            </div>
-            <div>
-              <dt><span class="dot dot-progress" aria-hidden="true"></span>studying</dt>
-              <dd>Bachelor’s degree <span class="board-sub">ESG UQAM · in progress</span></dd>
-            </div>
-            <div>
-              <dt><span class="dot dot-open" aria-hidden="true"></span>next</dt>
-              <dd>Systems, automation, or IT role <span class="board-sub">Montréal or remote · <a href="#contact">get in touch</a></span></dd>
-            </div>
-          </dl>
-        </aside>
-      </div>
-    </section>
+          </div>
 
-    <!-- ============================ about ============================ -->
-    <section class="section" id="about">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow"><b>01</b> / about</span>
-        <h2>Two jobs that turned out to be <em>the same job</em></h2>
-      </div>
-      <div class="about-grid">
-        <div class="prose" data-reveal>
-          <p class="prose-lead">
-            I’m a computer science graduate in Montréal who likes the unglamorous
-            half of software: the part where it has to keep running.
-          </p>
-          <p>
-            At Polysleep I started on the customer-service side and moved into
-            business systems and operations within months. Today I own the daily Shopify and
-            CX reporting, run batch order fulfillment across Cin7 and
-            ShipStation, and lead the team’s AI adoption — turning the
-            repetitive parts of the job into automations someone else can
-            maintain.
-          </p>
-          <p>
-            At home I run the infrastructure most people rent: a photo and file
-            platform my family actually uses, load-balanced web services on
-            Docker, game servers, and a Wazuh SIEM watching every endpoint on
-            the network. When something breaks at 2&nbsp;a.m., I’m the on-call.
-          </p>
-          <p>
-            Before software I led people — a soccer camp, a team roster,
-            nightlife events — which is why I measure work by whether it got
-            easier for whoever has to use it, not by tickets closed.
-          </p>
-        </div>
+          <ol class="day-bar" aria-hidden="true">
+            <li class="is-saved"><span>1</span></li>
+            <li class="is-saved"><span>2</span></li>
+            <li><span>3</span></li>
+            <li><span>4</span></li>
+            <li><span>5</span></li>
+            <li><span>6</span></li>
+            <li><span>7</span></li>
+            <li><span>8</span></li>
+          </ol>
+          <p class="day-bracket" aria-hidden="true"><span class="day-bracket-before">tracking, by hand</span><span class="day-bracket-after">given back</span></p>
 
-        <div class="about-side" data-reveal data-reveal-delay="1">
-          <dl class="facts">
-            <div><dt>based</dt><dd>Montréal, QC</dd></div>
-            <div><dt>education</dt><dd>DEC Computer Science: Programming — LaSalle College, 2025</dd></div>
-            <div><dt>studying</dt><dd>Bachelor’s — ESG UQAM</dd></div>
-            <div><dt>focus</dt><dd>automation · business systems · linux · self-hosting</dd></div>
-          </dl>
-          <ul class="hats" aria-label="Outside of software">
-            <li>
-              <span class="hat-tag">off the clock</span>
-              <p><strong>Short-form video.</strong> I shoot, edit, and publish for Reels, TikTok, and Shorts — and read the analytics afterwards.</p>
-            </li>
-            <li>
-              <span class="hat-tag">on the pitch</span>
-              <p><strong>Soccer coach.</strong> Years of head-coaching and running summer camps taught me most of what I know about leading a team.</p>
-            </li>
-          </ul>
-        </div>
+          <div class="day-caption">
+            <p class="day-before"><strong>2 h</strong> Every day, two hours went to tracking updates in Shopify — done by hand.</p>
+            <p class="day-after"><strong>2 h</strong> Two hours a day of manual tracking work in Shopify, automated and handed back.</p>
+          </div>
+          <figcaption class="day-foot">that’s ten hours a week <span>· polysleep</span></figcaption>
+        </figure>
       </div>
     </section>
 
     <!-- ============================ work ============================ -->
     <section class="section" id="work">
       <div class="section-head" data-reveal>
-        <span class="eyebrow"><b>02</b> / work</span>
-        <h2>Automation that <em>removes</em> work</h2>
+        <span class="eyebrow"><b>01</b> / work</span>
+        <h2>Work that stopped being <em>work</em></h2>
         <p class="section-note">
-          What I build at Polysleep: small, documented tools — mostly AI skills
-          wired into the systems the team already uses — each one replacing a
-          task somebody used to do by hand.
+          At Polysleep I run the day-to-day across Shopify, Cin7, ShipStation,
+          and Gorgias — and automate the parts of it that repeat. Two of them
+          changed how the team spends its day.
         </p>
       </div>
 
-      <ul class="systems" data-reveal aria-label="Systems these automations connect">
-        <li>Shopify</li><li>Gorgias</li><li>Cin7</li><li>ShipStation</li><li>BigQuery</li><li>Excel</li><li>Claude</li>
-      </ul>
+      <article class="case" data-reveal>
+        <header class="case-head">
+          <span class="case-index" aria-hidden="true">01</span>
+          <p class="case-tag">order tracking <span>shopify</span></p>
+        </header>
+        <div class="case-body">
+          <h3>Tracking that updates itself</h3>
+          <p>
+            Keeping tracking up to date in Shopify was a manual job: about two
+            hours of the day, every day. I automated it. The updates now happen
+            without anyone touching them, and those two hours went back to work
+            that actually needs a person.
+          </p>
+        </div>
+        <dl class="delta">
+          <div class="delta-before">
+            <dt>before</dt>
+            <dd><strong>2 hrs</strong><span>a day, by hand</span></dd>
+          </div>
+          <div class="delta-after">
+            <dt>after</dt>
+            <dd><strong>Automated</strong><span>runs on its own</span></dd>
+          </div>
+        </dl>
+      </article>
 
-      <div class="work-grid">
-        <article class="work-card" data-reveal>
-          <p class="work-tag">reporting <span>shopify · gorgias</span></p>
-          <h3>The morning briefing</h3>
-          <p>Daily sales, order, and customer-experience metrics pulled and shaped for the leadership stand-up, so the day starts from numbers instead of guesses.</p>
-        </article>
+      <article class="case" data-reveal>
+        <header class="case-head">
+          <span class="case-index" aria-hidden="true">02</span>
+          <p class="case-tag">customer service <span>ai agent</span></p>
+        </header>
+        <div class="case-body">
+          <h3>An AI agent on the repetitive tickets</h3>
+          <p>
+            Customer service has a long tail of the same questions, answered
+            again and again. I started at Polysleep in customer service, so I’d
+            answered them myself. An AI agent now does that repetitive work,
+            and the team gets hours back every week for the conversations that
+            need a human.
+          </p>
+        </div>
+        <dl class="delta">
+          <div class="delta-before">
+            <dt>before</dt>
+            <dd><strong>By hand</strong><span>the same answers, on repeat</span></dd>
+          </div>
+          <div class="delta-after">
+            <dt>after</dt>
+            <dd><strong>Hours back</strong><span>every week</span></dd>
+          </div>
+        </dl>
+      </article>
 
-        <article class="work-card" data-reveal data-reveal-delay="1">
-          <p class="work-tag">risk <span>shopify · ai skill</span></p>
-          <h3>Order-risk screening</h3>
-          <p>A scan across every order in a date range that surfaces payment-risk patterns no single order page shows, ranked from high to cleared with a plain-language reason for each.</p>
-        </article>
-
-        <article class="work-card" data-reveal data-reveal-delay="2">
-          <p class="work-tag">fulfillment <span>shipstation · cin7</span></p>
-          <h3>Shipment consolidation</h3>
-          <p>Finds orders headed to the same recipient, combines them, and sets the packages per unit — a daily click-through chore reduced to one request.</p>
-        </article>
-
-        <article class="work-card" data-reveal>
-          <p class="work-tag">inventory <span>bigquery</span></p>
-          <h3>Stock answers on demand</h3>
-          <p>On-hand, open-sales, and backorder lookups straight from the data warehouse — one product or the whole catalogue — without anyone opening a dashboard.</p>
-        </article>
-
-        <article class="work-card" data-reveal data-reveal-delay="1">
-          <p class="work-tag">customer voice <span>ai skill · en / fr</span></p>
-          <h3>Review replies that don’t sound canned</h3>
-          <p>Drafts public replies in the brand’s voice and the reviewer’s language, with one hard rule: no two replies may reuse the same phrasing.</p>
-        </article>
-
-        <article class="work-card" data-reveal data-reveal-delay="2">
-          <p class="work-tag">forecasting <span>excel</span></p>
-          <h3>A faster forecast workbook</h3>
-          <p>Re-engineered a 60-plus-sheet, 300-plus-pivot planning workbook to recalculate faster — shared pivot caches, centralized links — verified value-for-value unchanged.</p>
-        </article>
+      <div class="ledger-wrap" data-reveal>
+        <h3 class="ledger-title">Also running <span>// smaller tools, same idea</span></h3>
+        <ul class="ledger">
+          <li>
+            <h4>Morning briefing</h4>
+            <p>Daily sales, order, and customer-experience metrics, shaped for the leadership stand-up.</p>
+            <span class="ledger-sys">shopify · gorgias</span>
+          </li>
+          <li>
+            <h4>Order-risk screening</h4>
+            <p>Scans every order in a date range for payment-risk patterns no single order page shows.</p>
+            <span class="ledger-sys">shopify</span>
+          </li>
+          <li>
+            <h4>Shipment consolidation</h4>
+            <p>Combines orders headed to the same recipient and sets the packages for each.</p>
+            <span class="ledger-sys">shipstation · cin7</span>
+          </li>
+          <li>
+            <h4>Stock answers</h4>
+            <p>On-hand, open-sales, and backorder lookups straight from the data warehouse.</p>
+            <span class="ledger-sys">bigquery</span>
+          </li>
+          <li>
+            <h4>Review replies</h4>
+            <p>Drafted in the brand’s voice and the reviewer’s language — never the same phrasing twice.</p>
+            <span class="ledger-sys">en / fr</span>
+          </li>
+          <li>
+            <h4>Forecast workbook</h4>
+            <p>A 60-plus-sheet, 300-plus-pivot planning workbook rebuilt to recalculate faster, values verified unchanged.</p>
+            <span class="ledger-sys">excel</span>
+          </li>
+          <li>
+            <h4>Purchase-order intake</h4>
+            <p>PO PDFs parsed straight into spreadsheet rows, one line item each.</p>
+            <span class="ledger-sys">pdf → excel</span>
+          </li>
+        </ul>
       </div>
+    </section>
 
-      <p class="work-foot" data-reveal>
-        Every automation ships with an SOP, so it outlives the person who wrote it.
-        Also in the toolbox: purchase-order PDFs parsed straight into spreadsheet
-        rows, and the small recurring chores — folder scaffolding, hours logging —
-        nobody should be doing by hand.
-      </p>
+    <!-- ============================ approach ============================ -->
+    <section class="section" id="approach">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow"><b>02</b> / approach</span>
+        <h2>Three rules I <em>work by</em></h2>
+      </div>
+      <ol class="rules">
+        <li data-reveal>
+          <span class="rule-num" aria-hidden="true">i.</span>
+          <h3>Start with the chore</h3>
+          <p>The best thing to automate is rarely the interesting thing. It’s the task someone does the same way every day. I go looking for hours, not novelty.</p>
+        </li>
+        <li data-reveal data-reveal-delay="1">
+          <span class="rule-num" aria-hidden="true">ii.</span>
+          <h3>Use what’s already there</h3>
+          <p>No new platform for the team to learn. I wire AI into the tools they already live in — Shopify, Gorgias, Cin7, ShipStation, Excel.</p>
+        </li>
+        <li data-reveal data-reveal-delay="2">
+          <span class="rule-num" aria-hidden="true">iii.</span>
+          <h3>Write it down</h3>
+          <p>Every automation ships with an SOP, so it keeps working — and someone else can maintain it — after I’ve moved on to the next one.</p>
+        </li>
+      </ol>
     </section>
 
     <!-- ============================ homelab ============================ -->
     <section class="section" id="homelab">
       <div class="section-head" data-reveal>
         <span class="eyebrow"><b>03</b> / homelab</span>
-        <h2>The rack: four systems, <em>always on</em></h2>
+        <h2>After hours, I run <em>my own</em></h2>
         <p class="section-note">
-          No repo links here — the demo is that they’re running. Hover a system
-          to trace its path, or ask the terminal: <code>projects 2</code>
+          Four self-hosted systems at home, always on — the infrastructure
+          most people rent. When something breaks at 2&nbsp;a.m., I’m the
+          on-call. Hover a system to trace its path.
         </p>
       </div>
 
@@ -300,7 +292,7 @@
             <marker id="arr-on" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arr-on" d="M0 0 8 4 0 8z"/></marker>
           </defs>
 
-          <rect class="frame" x="384" y="20" width="600" height="276" rx="10"/>
+          <rect class="frame" x="384" y="20" width="600" height="276" rx="6"/>
           <text class="frame-label" x="400" y="42">homelab · self-hosted on linux</text>
 
           <g class="legend" aria-hidden="true">
@@ -314,12 +306,12 @@
           <g class="sys" data-sys="entry">
             <path class="edge" d="M156 182H206"/>
             <g class="node" transform="translate(16 150)">
-              <rect width="140" height="64" rx="8"/>
+              <rect width="140" height="64" rx="5"/>
               <text class="n-label" x="70" y="29">internet</text>
               <text class="n-sub" x="70" y="46">visitors · devices</text>
             </g>
             <g class="node" transform="translate(206 150)">
-              <rect width="130" height="64" rx="8"/>
+              <rect width="130" height="64" rx="5"/>
               <text class="n-label" x="65" y="29">edge router</text>
               <text class="n-sub" x="65" y="46">port forwarding</text>
             </g>
@@ -331,16 +323,16 @@
             <path class="edge" d="M558 82H618"/>
             <path class="edge" d="M788 82H848"/>
             <g class="node" transform="translate(408 56)">
-              <rect width="150" height="52" rx="8"/>
+              <rect width="150" height="52" rx="5"/>
               <text class="n-label" x="75" y="31">reverse proxy</text>
             </g>
             <g class="node" transform="translate(618 56)">
-              <rect width="170" height="52" rx="8"/>
+              <rect width="170" height="52" rx="5"/>
               <text class="n-label" x="85" y="23">immich · nextcloud</text>
               <text class="n-sub" x="85" y="39">photos · files</text>
             </g>
             <g class="node" transform="translate(848 56)">
-              <rect width="112" height="52" rx="8"/>
+              <rect width="112" height="52" rx="5"/>
               <text class="n-label" x="56" y="23">storage</text>
               <text class="n-sub" x="56" y="39">on-premise</text>
             </g>
@@ -351,11 +343,11 @@
             <path class="edge" d="M336 182C372 182 372 162 408 162"/>
             <path class="edge" d="M558 162H618"/>
             <g class="node" transform="translate(408 136)">
-              <rect width="150" height="52" rx="8"/>
+              <rect width="150" height="52" rx="5"/>
               <text class="n-label" x="75" y="31">load balancer</text>
             </g>
             <g class="node" transform="translate(618 136)">
-              <rect width="170" height="52" rx="8"/>
+              <rect width="170" height="52" rx="5"/>
               <text class="n-label" x="85" y="23">apache ×n</text>
               <text class="n-sub" x="85" y="39">docker compose</text>
             </g>
@@ -367,16 +359,16 @@
             <path class="edge" d="M558 242H618"/>
             <path class="edge edge-both" d="M788 242H848"/>
             <g class="node" transform="translate(408 216)">
-              <rect width="150" height="52" rx="8"/>
+              <rect width="150" height="52" rx="5"/>
               <text class="n-label" x="75" y="31">game proxy</text>
             </g>
             <g class="node" transform="translate(618 216)">
-              <rect width="170" height="52" rx="8"/>
+              <rect width="170" height="52" rx="5"/>
               <text class="n-label" x="85" y="23">mc-server ×n</text>
               <text class="n-sub" x="85" y="39">json config</text>
             </g>
             <g class="node" transform="translate(848 216)">
-              <rect width="112" height="52" rx="8"/>
+              <rect width="112" height="52" rx="5"/>
               <text class="n-label" x="56" y="23">web</text>
               <text class="n-sub" x="56" y="39">public site</text>
             </g>
@@ -388,7 +380,7 @@
             <path class="edge edge-watch" d="M703 328V298"/>
             <path class="edge edge-watch" d="M904 328V298"/>
             <g class="node" transform="translate(408 328)">
-              <rect width="552" height="52" rx="8"/>
+              <rect width="552" height="52" rx="5"/>
               <text class="n-label" x="276" y="23">wazuh siem</text>
               <text class="n-sub" x="276" y="39">agents on every endpoint → manager → dashboard &amp; alerts</text>
             </g>
@@ -397,214 +389,207 @@
         <figcaption class="visually-hidden">Topology of the four homelab systems described below.</figcaption>
       </figure>
 
-      <div class="project-grid">
-        <article class="project" data-sys="media" data-reveal tabindex="0">
-          <header>
+      <div class="rack">
+        <ul class="rack-list" aria-label="Homelab systems">
+          <li class="project" data-sys="media" data-reveal tabindex="0">
             <span class="project-index" aria-hidden="true">01</span>
-            <h3>Media Server</h3>
-            <span class="project-status"><span class="dot dot-live" aria-hidden="true"></span>operational — daily users</span>
-          </header>
-          <p>
-            A fully on-premise photo and file platform — Immich for photos,
-            Nextcloud for everything else — that replaced the household’s paid
-            iCloud storage. Backups, updates, and uptime are on me.
-          </p>
-          <p class="project-arch" aria-label="Architecture">[phones · laptops] → [reverse proxy] → [immich · nextcloud] → [storage]</p>
-          <p class="project-stack">immich · nextcloud · linux</p>
-        </article>
-
-        <article class="project" data-sys="web" data-reveal data-reveal-delay="1" tabindex="0">
-          <header>
+            <div class="project-body">
+              <h3>Media server <span class="project-status"><span class="dot dot-live" aria-hidden="true"></span>daily users</span></h3>
+              <p>An on-premise photo and file platform — Immich and Nextcloud — that replaced the household’s paid iCloud storage. Backups, updates, and uptime are on me.</p>
+              <p class="project-stack">immich · nextcloud · linux</p>
+            </div>
+          </li>
+          <li class="project" data-sys="web" data-reveal tabindex="0">
             <span class="project-index" aria-hidden="true">02</span>
-            <h3>Web Services</h3>
-            <span class="project-status"><span class="dot dot-live" aria-hidden="true"></span>operational</span>
-          </header>
-          <p>
-            Horizontally scalable Apache services on a Docker Compose stack —
-            load-balanced and port-forwarded through the network edge, sized to
-            absorb traffic spikes without falling over.
-          </p>
-          <p class="project-arch" aria-label="Architecture">[clients] → [edge router] → [load balancer] → [apache ×n]</p>
-          <p class="project-stack">apache · docker compose · load balancing</p>
-        </article>
-
-        <article class="project" data-sys="game" data-reveal tabindex="0">
-          <header>
+            <div class="project-body">
+              <h3>Web services <span class="project-status"><span class="dot dot-live" aria-hidden="true"></span>operational</span></h3>
+              <p>Apache services on a Docker Compose stack, load-balanced and port-forwarded through the network edge, sized to absorb traffic spikes.</p>
+              <p class="project-stack">apache · docker compose · load balancing</p>
+            </div>
+          </li>
+          <li class="project" data-sys="game" data-reveal tabindex="0">
             <span class="project-index" aria-hidden="true">03</span>
-            <h3>Game Server Deployment</h3>
-            <span class="project-status"><span class="dot dot-live" aria-hidden="true"></span>operational</span>
-          </header>
-          <p>
-            Interconnected Minecraft servers behind a public-facing website,
-            wired together through JSON configuration — provisioning,
-            networking, and world data managed as config, not clicks.
-          </p>
-          <p class="project-arch" aria-label="Architecture">[players] → [proxy] → [mc-server ×n] ↔ [web]</p>
-          <p class="project-stack">minecraft · web server · json config</p>
-        </article>
-
-        <article class="project" data-sys="sec" data-reveal data-reveal-delay="1" tabindex="0">
-          <header>
+            <div class="project-body">
+              <h3>Game servers <span class="project-status"><span class="dot dot-live" aria-hidden="true"></span>operational</span></h3>
+              <p>Interconnected Minecraft servers behind a public website — provisioning, networking, and world data managed as JSON config, not clicks.</p>
+              <p class="project-stack">minecraft · web server · json config</p>
+            </div>
+          </li>
+          <li class="project" data-sys="sec" data-reveal tabindex="0">
             <span class="project-index" aria-hidden="true">04</span>
-            <h3>Network Security</h3>
-            <span class="project-status"><span class="dot dot-live" aria-hidden="true"></span>operational — always watching</span>
-          </header>
-          <p>
-            Wazuh SIEM agents on every endpoint in the network, feeding a
-            central dashboard — plus a sweep that scanned and closed unnecessary
-            open ports to shrink the attack surface.
+            <div class="project-body">
+              <h3>Network security <span class="project-status"><span class="dot dot-live" aria-hidden="true"></span>always watching</span></h3>
+              <p>Wazuh SIEM agents on every endpoint feeding one dashboard, plus a sweep that found and closed unnecessary open ports.</p>
+              <p class="project-stack">wazuh siem · port scanning · hardening</p>
+            </div>
+          </li>
+        </ul>
+
+        <div class="rack-term" data-reveal>
+          <p class="visually-hidden">
+            Interactive terminal — a toy, not a gate: everything it prints is
+            also written out on this page.
           </p>
-          <p class="project-arch" aria-label="Architecture">[endpoints ×n] → [wazuh agents] → [siem manager] → [alerts]</p>
-          <p class="project-stack">wazuh siem · port scanning · hardening</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- ============================ experience ============================ -->
-    <section class="section" id="experience">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow"><b>04</b> / experience</span>
-        <h2>Experience &amp; <em>education</em></h2>
-      </div>
-
-      <ol class="timeline">
-        <li class="timeline-item is-current" data-reveal>
-          <span class="timeline-date">Dec 2025 — present</span>
-          <div class="timeline-body">
-            <h3>Business Systems &amp; Operations Analyst · E-commerce &amp; AI <span class="timeline-org">— Polysleep</span></h3>
-            <p>Joined as a Customer Service Specialist; moved into business systems and operations in 2026. Daily Shopify sales and Gorgias CX reporting for leadership briefings, batch order fulfillment across Cin7 and ShipStation, SOPs that keep automations maintainable, and the lead on the team’s AI implementation and prompt engineering.</p>
+          <div class="terminal" id="terminal" hidden>
+            <div class="terminal-bar" aria-hidden="true">
+              <span class="terminal-dots"><i></i><i></i><i></i></span>
+              <span>peter@rack: ~</span>
+              <span class="terminal-hint">try `nmap`</span>
+            </div>
+            <div class="terminal-body">
+              <div class="terminal-out" role="log" aria-live="polite"></div>
+              <div class="terminal-line">
+                <span class="terminal-prompt" aria-hidden="true">peter@rack:~$</span>
+                <input class="terminal-input" type="text" autocomplete="off" autocapitalize="off"
+                       autocorrect="off" spellcheck="false" aria-label="Terminal input" enterkeyhint="send">
+              </div>
+            </div>
           </div>
-        </li>
-        <li class="timeline-item is-current" data-reveal>
-          <span class="timeline-date">2025 — present</span>
-          <div class="timeline-body">
-            <h3>Bachelor’s degree <span class="timeline-org">— ESG UQAM, Montréal</span></h3>
-            <p>Continuing studies at UQAM’s school of management.</p>
-          </div>
-        </li>
-        <li class="timeline-item is-current" data-reveal>
-          <span class="timeline-date">May 2025 — present</span>
-          <div class="timeline-body">
-            <h3>Content Creator <span class="timeline-org">— self-employed</span></h3>
-            <p>Short-form video for Instagram Reels, TikTok, and YouTube Shorts — editing, publishing, scheduling, and analytics.</p>
-          </div>
-        </li>
-        <li class="timeline-item" data-reveal>
-          <span class="timeline-date">2025</span>
-          <div class="timeline-body">
-            <h3>Programming Intern · Full-Stack <span class="timeline-org">— Jaqln.ai</span></h3>
-            <p>Full-stack web development internship on an AI product.</p>
-          </div>
-        </li>
-        <li class="timeline-item" data-reveal>
-          <span class="timeline-date">2024</span>
-          <div class="timeline-body">
-            <h3>Software QA Analyst <span class="timeline-org">— PlaytestCloud</span></h3>
-            <p>Quality-assurance analysis for mobile-game playtesting.</p>
-          </div>
-        </li>
-        <li class="timeline-item" data-reveal>
-          <span class="timeline-date">Summer 2024</span>
-          <div class="timeline-body">
-            <h3>Operations Manager <span class="timeline-org">— CSRDP Soccer Camp</span></h3>
-            <p>Led the staff team and cut redundant tasks for a 10% productivity gain; scheduled hours to prevent overstaffing and burnout; trained new hires.</p>
-          </div>
-        </li>
-        <li class="timeline-item" data-reveal>
-          <span class="timeline-date">2023 — 2025</span>
-          <div class="timeline-body">
-            <h3>DEC Computer Science: Programming <span class="timeline-org">— LaSalle College, Montréal</span></h3>
-            <p>Completed July 2025 — the formal grounding under years of self-directed systems work.</p>
-          </div>
-        </li>
-        <li class="timeline-item timeline-earlier" data-reveal>
-          <span class="timeline-date">2020 — 2025</span>
-          <div class="timeline-body">
-            <h3>Earlier <span class="timeline-org">— people, events, and operations</span></h3>
-            <p>Event promoter for Montréal venues, where flyers and social content lifted sales 15% · Head coach and camp lead at Soccer Saint-Laurent · Administrative assistant at SubarTextiles, handling orders, invoices, and clients.</p>
-          </div>
-        </li>
-      </ol>
-    </section>
-
-    <!-- ============================ toolkit ============================ -->
-    <section class="section" id="toolkit">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow"><b>05</b> / toolkit</span>
-        <h2>Skills &amp; <em>certifications</em></h2>
-      </div>
-
-      <div class="toolkit-grid">
-        <dl class="skills" data-reveal>
-          <div class="skills-row">
-            <dt>automation &amp; AI</dt>
-            <dd>
-              <ul class="chips">
-                <li class="chip-strong">Prompt engineering</li><li class="chip-strong">Claude skills</li><li class="chip-strong">SOP writing</li><li>Ollama</li><li>APIs</li><li>BigQuery</li><li>Excel</li>
-              </ul>
-            </dd>
-          </div>
-          <div class="skills-row">
-            <dt>business systems</dt>
-            <dd>
-              <ul class="chips">
-                <li class="chip-strong">Shopify</li><li class="chip-strong">Cin7</li><li class="chip-strong">ShipStation</li><li>Gorgias</li><li>Asana</li><li>Microsoft 365</li>
-              </ul>
-            </dd>
-          </div>
-          <div class="skills-row">
-            <dt>infrastructure &amp; security</dt>
-            <dd>
-              <ul class="chips">
-                <li class="chip-strong">Linux</li><li class="chip-strong">Docker</li><li>Nginx</li><li>Proxmox</li><li>Wazuh SIEM</li><li>VPN</li><li>AWS</li><li>GCP</li><li>VMware</li><li>Server administration</li>
-              </ul>
-            </dd>
-          </div>
-          <div class="skills-row">
-            <dt>scripting &amp; code, when it’s the right tool</dt>
-            <dd>
-              <ul class="chips">
-                <li>Python</li><li>JavaScript</li><li>Bash</li><li>Git</li><li>C#</li><li>Java</li><li>PHP</li><li>Swift</li><li>HTML/CSS</li>
-              </ul>
-            </dd>
-          </div>
-        </dl>
-
-        <div class="certs" data-reveal data-reveal-delay="1">
-          <div class="cert">
-            <p class="cert-org">google · cybersecurity courses</p>
-            <ul>
-              <li>Foundations of Cybersecurity</li>
-              <li>Play It Safe: Manage Security Risks</li>
-              <li>Connect and Protect: Networks and Network Security</li>
-            </ul>
-          </div>
-          <div class="cert">
-            <p class="cert-org">aws educate</p>
-            <ul>
-              <li>Getting Started with Compute</li>
-              <li>Getting Started with Networking</li>
-              <li>Cloud 101</li>
-            </ul>
-          </div>
-          <div class="cert">
-            <p class="cert-org">codecademy</p>
-            <ul>
-              <li>JavaScript · Node.js · Command Line</li>
-              <li>iOS Development</li>
-              <li>Intro to Ethical Hacking · Intro to Cybersecurity</li>
-            </ul>
+          <div class="terminal-chips" id="terminal-chips" hidden>
+            <button type="button" data-cmd="help">help</button>
+            <button type="button" data-cmd="work">work</button>
+            <button type="button" data-cmd="projects">projects</button>
+            <button type="button" data-cmd="neofetch">neofetch</button>
+            <button type="button" data-cmd="nmap gh.petestech.com">nmap</button>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ============================ about ============================ -->
+    <section class="section" id="about">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow"><b>04</b> / about</span>
+        <h2>From the support queue to the <em>systems behind it</em></h2>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-main">
+          <div class="prose" data-reveal>
+            <p class="prose-lead">
+              I’m a computer science graduate in Montréal who likes the
+              unglamorous half of technology: the part where it has to keep
+              running.
+            </p>
+            <p>
+              I joined Polysleep in customer service and moved into business
+              systems and operations within months. Today I own the daily sales
+              and customer-experience reporting, run batch order fulfillment
+              across Cin7 and ShipStation, and lead the team’s AI adoption.
+            </p>
+            <p>
+              Before that I led people — coached soccer teams, ran a summer
+              camp’s operations, promoted events — which is why I measure work
+              by whether it got easier for whoever has to do it. Off the clock
+              I make short-form video for Reels, TikTok, and Shorts.
+            </p>
+          </div>
+
+          <h3 class="sub-title" data-reveal>Path</h3>
+          <ol class="path">
+            <li class="is-current" data-reveal>
+              <span class="path-date">Dec 2025 — now</span>
+              <div>
+                <h4>Business Systems &amp; Operations Analyst <span>— Polysleep</span></h4>
+                <p>Joined as a Customer Service Specialist; moved into business systems and operations in 2026. Reporting, fulfillment, SOPs, and the team’s AI implementation.</p>
+              </div>
+            </li>
+            <li class="is-current" data-reveal>
+              <span class="path-date">May 2025 — now</span>
+              <div>
+                <h4>Content Creator <span>— self-employed</span></h4>
+                <p>Short-form video: shooting, editing, publishing, and analytics.</p>
+              </div>
+            </li>
+            <li data-reveal>
+              <span class="path-date">2025</span>
+              <div>
+                <h4>Programming Intern <span>— Jaqln.ai</span></h4>
+                <p>Web development internship on an AI product.</p>
+              </div>
+            </li>
+            <li data-reveal>
+              <span class="path-date">2024</span>
+              <div>
+                <h4>Software QA Analyst <span>— PlaytestCloud</span></h4>
+                <p>Quality-assurance analysis for mobile-game playtesting.</p>
+              </div>
+            </li>
+            <li data-reveal>
+              <span class="path-date">Summer 2024</span>
+              <div>
+                <h4>Operations Manager <span>— CSRDP Soccer Camp</span></h4>
+                <p>Led the staff team and cut redundant tasks for a 10% productivity gain; built schedules that prevented overstaffing and burnout.</p>
+              </div>
+            </li>
+            <li data-reveal>
+              <span class="path-date">2020 — 2025</span>
+              <div>
+                <h4>Earlier <span>— people, events, and operations</span></h4>
+                <p>Event promoter for Montréal venues, where flyers and social content lifted sales 15% · Head coach and camp lead at Soccer Saint-Laurent · Administrative assistant at SubarTextiles.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <aside class="about-side" data-reveal data-reveal-delay="1">
+          <div class="side-block">
+            <h3 class="sub-title">Education</h3>
+            <dl class="facts">
+              <div><dt>2025 — now</dt><dd>Bachelor’s degree <span>ESG UQAM · in progress</span></dd></div>
+              <div><dt>2023 — 2025</dt><dd>DEC Computer Science: Programming <span>LaSalle College</span></dd></div>
+            </dl>
+          </div>
+
+          <div class="side-block">
+            <h3 class="sub-title">Toolkit</h3>
+            <dl class="toolkit">
+              <div>
+                <dt>automation &amp; AI</dt>
+                <dd>Prompt engineering · Claude skills · AI agents · SOP writing · Ollama · APIs</dd>
+              </div>
+              <div>
+                <dt>business systems</dt>
+                <dd>Shopify · Cin7 · ShipStation · Gorgias · BigQuery · Excel · Asana · Microsoft 365</dd>
+              </div>
+              <div>
+                <dt>infrastructure</dt>
+                <dd>Linux · Docker · Nginx · Proxmox · Wazuh SIEM · VPN · AWS · GCP · VMware</dd>
+              </div>
+              <div>
+                <dt>scripting, when it’s the right tool</dt>
+                <dd>Python · JavaScript · Bash · Git</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="side-block">
+            <h3 class="sub-title">Courses</h3>
+            <dl class="toolkit">
+              <div>
+                <dt>google</dt>
+                <dd>Foundations of Cybersecurity · Manage Security Risks · Networks and Network Security</dd>
+              </div>
+              <div>
+                <dt>aws educate</dt>
+                <dd>Compute · Networking · Cloud 101</dd>
+              </div>
+              <div>
+                <dt>codecademy</dt>
+                <dd>JavaScript · Node.js · Command Line · iOS · Ethical Hacking · Cybersecurity</dd>
+              </div>
+            </dl>
+          </div>
+        </aside>
       </div>
     </section>
 
     <!-- ============================ contact ============================ -->
     <section class="section contact" id="contact">
       <div class="contact-card" data-reveal>
-        <span class="eyebrow"><b>06</b> / contact</span>
+        <span class="eyebrow"><b>05</b> / contact</span>
         <h2>Got a process that should <em>run itself</em>?</h2>
-        <p class="contact-lead">I’m open to systems, automation, and IT roles in Montréal or remote. Email is the way to reach me.</p>
+        <p class="contact-lead">I’m open to systems, automation, and IT roles in Montréal or remote. Tell me what’s eating your team’s day.</p>
         <div class="contact-row">
           <a class="contact-email" href="mailto:PeterNicolacacos@gmail.com">PeterNicolacacos@gmail.com</a>
           <button class="copy-btn" id="copy-email" type="button" data-copy="PeterNicolacacos@gmail.com" hidden>copy</button>
@@ -618,10 +603,7 @@
   </main>
 
   <footer class="site-footer">
-    <p class="colophon">
-      <span class="colophon-cmd" aria-hidden="true">$ cat colophon.txt</span>
-      hand-written html/css/js — no frameworks, no build step. hosted on github pages.
-    </p>
+    <p class="colophon">plain html, css, and js — no frameworks, no build step, no trackers.</p>
     <p class="copyright">© 2026 Panagiotis Nicolacacos · <a href="#top">back to top ↑</a></p>
   </footer>
 

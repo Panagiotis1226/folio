@@ -1,5 +1,5 @@
-// Page behavior: theme toggle, scroll reveals, nav scroll-spy,
-// homelab diagram linking, and the copy-email button.
+// Page behavior: theme, the before/after workday, scroll reveals,
+// nav scroll-spy, homelab diagram linking, and the copy-email button.
 // The terminal lives in ./terminal.js and is initialized from here.
 
 import { initTerminal } from './terminal.js';
@@ -8,22 +8,38 @@ const root = document.documentElement;
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ---------- theme ----------
-   Dark is the default; the choice is remembered when storage is available.
-   (The inline script in <head> restores it before first paint.) */
+   The inline script in <head> picks the theme before first paint: a saved
+   choice if there is one, otherwise the system setting. Only an explicit
+   choice (the toggle, or `theme` in the terminal) is saved. */
 
 const THEME_COLORS = { dark: '#0b0c0b', light: '#f4f1ea' };
 const themeMeta = document.querySelector('meta[name="theme-color"]');
 const themeToggle = document.getElementById('theme-toggle');
+const systemDark = matchMedia('(prefers-color-scheme: dark)');
 
-const getTheme = () => (root.dataset.theme === 'light' ? 'light' : 'dark');
+const getTheme = () => (root.dataset.theme === 'dark' ? 'dark' : 'light');
 
-function setTheme(theme) {
-  const next = theme === 'light' ? 'light' : 'dark';
+function hasSavedTheme() {
+  try {
+    const saved = localStorage.getItem('theme');
+    return saved === 'light' || saved === 'dark';
+  } catch {
+    return false;
+  }
+}
+
+function applyTheme(theme) {
+  const next = theme === 'dark' ? 'dark' : 'light';
   root.dataset.theme = next;
   if (themeMeta) themeMeta.content = THEME_COLORS[next];
   if (themeToggle) {
     themeToggle.setAttribute('aria-label', `Switch to ${next === 'dark' ? 'light' : 'dark'} theme`);
   }
+  return next;
+}
+
+function setTheme(theme) {
+  const next = applyTheme(theme);
   try {
     localStorage.setItem('theme', next);
   } catch {
@@ -32,11 +48,55 @@ function setTheme(theme) {
   return next;
 }
 
+applyTheme(getTheme());
+
 if (themeToggle) {
   themeToggle.hidden = false;
   themeToggle.addEventListener('click', () => setTheme(getTheme() === 'dark' ? 'light' : 'dark'));
 }
-if (themeMeta) themeMeta.content = THEME_COLORS[getTheme()];
+
+// Follow the system while the visitor hasn't chosen for themselves.
+systemDark.addEventListener('change', (e) => {
+  if (!hasSavedTheme()) applyTheme(e.matches ? 'dark' : 'light');
+});
+
+/* ---------- the workday: before → after ----------
+   Starts on "before", then flips to "after" once it has been seen.
+   Touching the toggle cancels the automatic flip. */
+
+const day = document.getElementById('day');
+
+if (day) {
+  const toggle = day.querySelector('.day-toggle');
+  const buttons = [...toggle.querySelectorAll('button')];
+  let flipTimer;
+
+  const setDay = (state) => {
+    day.dataset.state = state;
+    buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.state === state)));
+  };
+
+  toggle.hidden = false;
+  for (const b of buttons) {
+    b.addEventListener('click', () => {
+      clearTimeout(flipTimer);
+      flipTimer = null;
+      setDay(b.dataset.state);
+    });
+  }
+
+  if (reduceMotion) {
+    setDay('after');
+  } else {
+    setDay('before');
+    const seen = new IntersectionObserver((entries) => {
+      if (!entries.some((e) => e.isIntersecting)) return;
+      seen.disconnect();
+      flipTimer = setTimeout(() => setDay('after'), 2400);
+    }, { threshold: 0.6 });
+    seen.observe(day);
+  }
+}
 
 /* ---------- scroll reveals ---------- */
 
@@ -72,26 +132,26 @@ const spy = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('main section[id]').forEach((s) => spy.observe(s));
 
-/* ---------- homelab: link the topology diagram to the project cards ----------
-   Hovering or focusing a card traces that system's path in the diagram,
-   and hovering a system in the diagram highlights its card. */
+/* ---------- homelab: link the topology diagram to the systems list ----------
+   Hovering or focusing a system traces its path in the diagram, and
+   hovering a system in the diagram highlights its entry in the list. */
 
 const labMap = document.getElementById('lab-map');
-const projectCards = [...document.querySelectorAll('.project[data-sys]')];
+const projects = [...document.querySelectorAll('.project[data-sys]')];
 
 function traceSystem(sys) {
   if (!labMap) return;
   if (sys) labMap.dataset.active = sys;
   else delete labMap.dataset.active;
   labMap.querySelectorAll('.sys').forEach((g) => g.classList.toggle('is-active', g.dataset.sys === sys));
-  projectCards.forEach((card) => card.classList.toggle('is-active', card.dataset.sys === sys));
+  projects.forEach((p) => p.classList.toggle('is-active', p.dataset.sys === sys));
 }
 
-for (const card of projectCards) {
-  card.addEventListener('pointerenter', () => traceSystem(card.dataset.sys));
-  card.addEventListener('pointerleave', () => traceSystem(null));
-  card.addEventListener('focus', () => traceSystem(card.dataset.sys));
-  card.addEventListener('blur', () => traceSystem(null));
+for (const p of projects) {
+  p.addEventListener('pointerenter', () => traceSystem(p.dataset.sys));
+  p.addEventListener('pointerleave', () => traceSystem(null));
+  p.addEventListener('focus', () => traceSystem(p.dataset.sys));
+  p.addEventListener('blur', () => traceSystem(null));
 }
 
 if (labMap) {

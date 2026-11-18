@@ -5,23 +5,28 @@ Personal portfolio of Panagiotis "Peter" Nicolacacos, served at
 
 ## Philosophy
 
-Hand-written HTML, CSS, and JavaScript. No frameworks, no dependencies, no
-build step — the files in this repository are exactly the files the server
-sends. For a single page, modern platform features (CSS custom properties,
-fluid `clamp()` type, `IntersectionObserver`, ES modules) cover everything a
-toolchain would, with nothing to install and nothing to break.
+Plain HTML, CSS, and JavaScript. No frameworks, no dependencies, no build
+step, no trackers — the files in this repository are exactly the files the
+server sends. For a single page, modern platform features (CSS custom
+properties, fluid `clamp()` type, `IntersectionObserver`, ES modules) cover
+everything a toolchain would, with nothing to install and nothing to break.
 
-Dark is the default; a light theme is one click (or one `theme light` in the
-terminal) away, and the choice is remembered in `localStorage`.
+The page is built around outcomes rather than a list of skills: the hero is
+one workday shown before and after an automation, and the work section is two
+case studies followed by a ledger of smaller tools.
+
+The theme follows the visitor's system setting. The toggle in the nav (or
+`theme dark` / `theme light` in the terminal) overrides it, and that choice is
+remembered in `localStorage`.
 
 ## Structure
 
 ```
 index.html          the page
-styles.css          design tokens (dark + light), layout, motion
-js/main.js          theme toggle, scroll reveals, nav scroll-spy,
-                    homelab diagram ↔ project card linking
-js/terminal.js      the interactive terminal in the hero
+styles.css          design tokens (light + dark), layout, motion
+js/main.js          theme, the before/after workday, scroll reveals,
+                    nav scroll-spy, homelab diagram ↔ systems list linking
+js/terminal.js      the interactive terminal in the homelab section
 assets/             favicon, fonts (self-hosted woff2), og image
 CNAME               custom domain for GitHub Pages — do not delete
 .nojekyll           tells GitHub Pages to serve files as-is
@@ -30,8 +35,11 @@ CNAME               custom domain for GitHub Pages — do not delete
 Fonts are self-hosted and all under the SIL Open Font License: Instrument
 Serif (display), Inter (text), JetBrains Mono (labels and the terminal).
 
+Colour carries one meaning throughout: amber is work done by hand, green is
+work that runs on its own.
+
 The homelab topology is a hand-authored inline SVG in `index.html`. Each
-`<g class="sys" data-sys="…">` pairs with the project card carrying the same
+`<g class="sys" data-sys="…">` pairs with the list item carrying the same
 `data-sys`, which is how hovering one highlights the other.
 
 Content that appears in two places — the page and the terminal's `work`,
