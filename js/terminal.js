@@ -9,7 +9,6 @@ const LINKS = {
   github: 'https://github.com/Panagiotis1226',
   linkedin: 'https://www.linkedin.com/in/panagiotis-nicolacacos',
   email: 'PeterNicolacacos@gmail.com',
-  cv: 'CV.pdf',
 };
 
 const PROJECTS = [
@@ -54,10 +53,10 @@ const WORK = [
 ];
 
 const SKILLS = [
-  ['languages', 'Python · JavaScript · C# · React · Node.js · Java · PHP · Swift · Bash · HTML/CSS · .NET'],
-  ['infra & sec', 'Linux · Docker · Nginx · Proxmox · Wazuh SIEM · VPN · AWS · GCP'],
-  ['automation', 'Prompt engineering · Claude skills · Ollama · APIs · BigQuery · Excel'],
-  ['platforms', 'Shopify · Gorgias · Cin7 · ShipStation · Git · VMware'],
+  ['automation', 'Prompt engineering · Claude skills · SOP writing · Ollama · APIs · BigQuery · Excel'],
+  ['systems', 'Shopify · Cin7 · ShipStation · Gorgias · Asana · Microsoft 365'],
+  ['infra & sec', 'Linux · Docker · Nginx · Proxmox · Wazuh SIEM · VPN · AWS · GCP · VMware'],
+  ['scripting', 'Python · JavaScript · Bash · Git · C# · Java · PHP · Swift · HTML/CSS'],
 ];
 
 const EXPERIENCE = [
@@ -71,7 +70,7 @@ const EXPERIENCE = [
 ];
 
 const CERTS = [
-  ['google', 'Cybersecurity Certificate — 3 of 8 courses [###·····]'],
+  ['google', 'Cybersecurity courses — Foundations · Security Risks · Network Security'],
   ['aws educate', 'Compute · Networking · Cloud 101'],
   ['codecademy', 'JavaScript · Node.js · Command Line · iOS · Ethical Hacking · Cybersecurity'],
 ];
@@ -88,8 +87,7 @@ const NOW = [
   ['working', 'business systems & AI automation @ Polysleep'],
   ['operating', 'a homelab with four live systems'],
   ['studying', 'bachelor’s, ESG UQAM'],
-  ['certifying', 'Google Cybersecurity — 3 of 8'],
-  ['next', 'a developer, security, or IT role'],
+  ['next', 'a systems, automation, or IT role'],
 ];
 
 const NEOFETCH_ART = [
@@ -280,13 +278,6 @@ export function initTerminal(root, chipsEl, {
         { prefix: '  linkedin  ', text: 'panagiotis-nicolacacos', href: LINKS.linkedin },
       ],
     },
-    cv: {
-      desc: 'open the resume (pdf)',
-      run() {
-        window.open(LINKS.cv, '_blank', 'noopener');
-        return [{ text: 'opening CV.pdf …', cls: 't-dim' }];
-      },
-    },
     open: {
       desc: 'open github | linkedin',
       run(args) {
@@ -300,7 +291,7 @@ export function initTerminal(root, chipsEl, {
     },
     ls: {
       desc: 'list files',
-      run: () => ['about.txt  now.txt  work.log  projects/  skills.conf  CV.pdf'],
+      run: () => ['about.txt  now.txt  work.log  projects/  skills.conf'],
     },
     cat: {
       desc: 'cat a file',
@@ -310,7 +301,6 @@ export function initTerminal(root, chipsEl, {
         if (f === 'skills.conf') return commands.skills.run();
         if (f === 'now.txt') return commands.now.run();
         if (f === 'work.log') return commands.work.run();
-        if (f === 'CV.pdf') return [{ text: 'cat: CV.pdf: binary file — try `cv` instead', cls: 't-warn' }];
         return [{ text: `cat: ${f || 'missing operand'}: No such file`, cls: 't-err' }];
       },
     },

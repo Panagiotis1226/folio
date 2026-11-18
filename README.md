@@ -23,7 +23,6 @@ js/main.js          theme toggle, scroll reveals, nav scroll-spy,
                     homelab diagram ↔ project card linking
 js/terminal.js      the interactive terminal in the hero
 assets/             favicon, fonts (self-hosted woff2), og image
-CV.pdf              resume
 CNAME               custom domain for GitHub Pages — do not delete
 .nojekyll           tells GitHub Pages to serve files as-is
 ```
