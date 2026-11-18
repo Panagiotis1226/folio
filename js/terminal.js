@@ -67,8 +67,8 @@ const SKILLS = [
 
 const EXPERIENCE = [
   ['dec 2025 →', 'Business Systems & Operations Analyst — Polysleep'],
-  ['may 2025 →', 'Content Creator — self-employed'],
   ['2025 →', 'Bachelor’s degree — ESG UQAM (in progress)'],
+  ['2025 – 2026', 'Content Creator — self-employed'],
   ['2025', 'Programming Intern — Jaqln.ai'],
   ['2024', 'Software QA Analyst — PlaytestCloud'],
   ['summer 2024', 'Operations Manager — CSRDP Soccer Camp'],
